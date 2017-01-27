@@ -2,4 +2,9 @@
 	Create new room:
 	<input type="text" min=1 [(ngModel)]="room.name" name="name"/>
 	<button type="button" (click)="createRoom()">save</button>
+	<ul>
+		<li *ngFor="let room of rooms">
+			{{room.name}}
+		</li>
+	</ul>
 </section>

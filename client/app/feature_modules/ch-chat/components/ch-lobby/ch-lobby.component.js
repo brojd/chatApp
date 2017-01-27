@@ -13,13 +13,18 @@ export class ChLobbyComponent {
   constructor(roomService: ChRoomService) {
     this.roomService = roomService;
     this.room = {};
+    this.rooms = [];
   }
   
   createRoom() {
     debugger;
     this.roomService.createRoom(this.room).subscribe(
-      res => {debugger;},
-      err => {debugger;}
+      res => {
+        if (res.success) {
+          this.rooms.unshift(res.room);
+        }
+      },
+      err => console.log(err)
     )
   }
   

@@ -4,8 +4,14 @@ let bodyParser = require('body-parser');
 let config = require('./config');
 let authRoutes = require('./routes/auth');
 let roomRoutes = require('./routes/room');
+let mongoose = require('mongoose');
 
 let app = express();
+
+mongoose.connect('mongodb://admin:admin1!@ds161518.mlab.com:61518/chat');
+mongoose.connection.once('open', () => {
+  console.log('successfully connected to db');
+});
 
 app.use(express.static(config.staticPath));
 
