@@ -1,3 +1,5 @@
 <section>
-	lobby component
+	Create new room:
+	<input type="text" min=1 [(ngModel)]="room.name" name="name"/>
+	<button type="button" (click)="createRoom()">save</button>
 </section>

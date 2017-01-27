@@ -19,7 +19,6 @@ export class UserService {
   }
 
   login(credentials) {
-    debugger;
     return this._http
       .post(`${API_URL}/login`, credentials)
       .map(res => res.json())
