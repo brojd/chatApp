@@ -23,4 +23,12 @@ router.post('/', (req, res) => {
   })
 });
 
+router.delete('/:id', (req, res) => {
+  let id = req.params.id;
+  Room.remove({ _id: id}, err => {
+    if (err) throw err;
+    res.send({ success: true });
+  });
+});
+
 module.exports = router;

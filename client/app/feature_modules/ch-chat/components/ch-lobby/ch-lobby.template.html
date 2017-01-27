@@ -1,10 +1,16 @@
 <section>
-	Create new room:
-	<input type="text" min=1 [(ngModel)]="room.name" name="name"/>
-	<button type="button" (click)="createRoom()">save</button>
-	<ul>
-		<li *ngFor="let room of rooms">
-			{{room.name}}
-		</li>
-	</ul>
+	<section>
+		Create new room:
+		<input type="text" min=1 [(ngModel)]="room.name" name="name"/>
+		<button type="button" (click)="createRoom()">save</button>
+	</section>
+	<section>
+		<div *ngFor="let room of rooms">
+			<a [routerLink]="['room', room._id]" class="item" >
+				<i class="gamepad huge icon"></i>
+				{{room.name}}
+			</a>
+			<i class="remove circle icon" (click)="deleteRoom(room._id)"></i>
+		</div>
+	</section>
 </section>

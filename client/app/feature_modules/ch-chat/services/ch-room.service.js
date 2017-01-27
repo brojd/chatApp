@@ -21,4 +21,10 @@ export class ChRoomService {
       .map(res => res.json());
   }
   
+  deleteRoom(id) {
+    return this._http
+      .delete(`${API_URL}/rooms/${id}`)
+      .map(res => res.json());
+  }
+  
 }

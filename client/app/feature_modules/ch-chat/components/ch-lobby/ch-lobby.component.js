@@ -17,15 +17,26 @@ export class ChLobbyComponent {
   }
   
   createRoom() {
-    debugger;
     this.roomService.createRoom(this.room).subscribe(
       res => {
         if (res.success) {
           this.rooms.unshift(res.room);
+          this.room.name = '';
         }
       },
       err => console.log(err)
     )
+  }
+  
+  deleteRoom(id) {
+    this.roomService.deleteRoom(id).subscribe(
+      res => {
+        if (res.success) {
+          this.rooms = this.rooms.filter(room => room._id !== id);
+        }
+      },
+      err => console.log(err)
+    );
   }
   
   ngOnInit() {
