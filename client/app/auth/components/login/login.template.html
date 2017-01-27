@@ -1,0 +1,34 @@
+<div class="center aligned pt-login">
+	<div>
+		Email: admin@admin.com
+	</div>
+	<div>
+		Password: 111
+	</div>
+	<div class="ui left aligned segment">
+		<form (ngSubmit)="onSubmit(loginForm.value)" [formGroup]="loginForm" class="ui form">
+			<div class="field">
+				<label for="login-email">Email</label>
+				<input type="text" formControlName="Login" id="login-email">
+			</div>
+			<div *ngIf="loginForm.controls.Login.hasError('required') && loginForm.controls.Login.touched"
+					 class="ui negative message">
+				Email is required
+			</div>
+			<div *ngIf="loginForm.controls.Login.hasError('email') && loginForm.controls.Login.touched"
+					 class="ui negative message">
+				Email is invalid
+			</div>
+			<div class="field">
+				<label for="login-password">Password</label>
+				<input type="password" formControlName="Password" id="login-password">
+			</div>
+			<div *ngIf="loginForm.controls.Password.hasError('required') && loginForm.controls.Password.touched"
+					 class="ui negative message">
+				Password is required
+			</div>
+			<div *ngIf="error">{{error}}</div>
+			<button type="submit" [disabled]="!loginForm.valid" class="ui button pt-loginButton">Login</button>
+		</form>
+	</div>
+</div>
