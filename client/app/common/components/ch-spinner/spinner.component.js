@@ -4,11 +4,11 @@ import styles from './spinner.stylesheet.scss';
 import './box.gif';
 
 @Component({
-  selector: 'spinner',
+  selector: 'ch-spinner',
   template: template,
   styles: [styles]
 })
-export class SpinnerComponent {
+export class ChSpinnerComponent {
   
   constructor() {}
   

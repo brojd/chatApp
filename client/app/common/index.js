@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }        from '@angular/forms';
-import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ChSpinnerComponent } from './components/ch-spinner/spinner.component';
 
 @NgModule({
   imports: [ CommonModule, FormsModule ],
-  declarations: [ SpinnerComponent ],
-  exports:      [ SpinnerComponent ]
+  declarations: [ ChSpinnerComponent ],
+  exports:      [ ChSpinnerComponent ]
 })
-export class AppCommonModule { }
+export class ChCommonModule { }
