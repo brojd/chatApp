@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/', authRoutes);
-app.use('/room', roomRoutes);
+app.use('/rooms', roomRoutes);
 
 app.listen(config.port);
 console.log(`Listening on port ${config.port}`);

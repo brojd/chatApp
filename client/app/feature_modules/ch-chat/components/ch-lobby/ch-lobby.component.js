@@ -28,4 +28,11 @@ export class ChLobbyComponent {
     )
   }
   
+  ngOnInit() {
+    this.roomService.getRooms().subscribe(
+      rooms => this.rooms = rooms,
+      err => console.log(err)
+    );
+  }
+  
 }
