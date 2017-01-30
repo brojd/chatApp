@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import template from './login.template.html';
+import template from './ch-log-in.template.html';
 import { UserService } from '../../services/user/user.service';
 import { validatorFactory } from '../../../validator';
-import styles from './login.stylesheet.scss';
+import styles from './ch-log-in.stylesheet.scss';
 
 @Component({
-  selector: 'login',
+  selector: 'ch-log-in',
   template: template,
   styles: [styles]
 })
-export class LoginComponent {
+export class ChLogInComponent {
 
   constructor(userService: UserService, builder: FormBuilder, router: Router) {
     this._userService = userService;
