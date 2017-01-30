@@ -4,13 +4,13 @@
 		<form (ngSubmit)="onSubmit(loginForm.value)" [formGroup]="loginForm" class="ui form">
 			<div class="field">
 				<label for="login-email">Email</label>
-				<input type="text" formControlName="Login" id="login-email">
+				<input type="text" formControlName="Email" id="login-email">
 			</div>
-			<div *ngIf="loginForm.controls.Login.hasError('required') && loginForm.controls.Login.touched"
+			<div *ngIf="loginForm.controls.Email.hasError('required') && loginForm.controls.Email.touched"
 					 class="ui negative message">
 				Email is required
 			</div>
-			<div *ngIf="loginForm.controls.Login.hasError('email') && loginForm.controls.Login.touched"
+			<div *ngIf="loginForm.controls.Email.hasError('email') && loginForm.controls.Email.touched"
 					 class="ui negative message">
 				Email is invalid
 			</div>

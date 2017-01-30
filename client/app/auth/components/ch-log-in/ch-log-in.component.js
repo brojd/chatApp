@@ -19,7 +19,7 @@ export class ChLogInComponent {
     this.error = '';
 
     this.loginForm = builder.group({
-      Login: ['', [Validators.required, validatorFactory('email')]],
+      Email: ['', [Validators.required, validatorFactory('email')]],
       Password: ['', Validators.required]
     });
   }
