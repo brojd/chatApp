@@ -1,4 +1,5 @@
 <section>
+	<div class=" ui header">{{roomName}}</div>
 	<div *ngFor="let message of messages">
 		{{message.date | date:'mediumTime'}} {{message.nickname}} {{message.text}}
 	</div>

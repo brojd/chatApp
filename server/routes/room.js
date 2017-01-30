@@ -10,6 +10,14 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/:id', (req, res) => {
+  console.log(req.params);
+  Room.findOne({ _id: req.params.id}, (err, room) => {
+    if (err) throw err;
+    res.send(room);
+  });
+});
+
 router.post('/', (req, res) => {
   let newRoom = new Room({
     name: req.body.name
