@@ -23,9 +23,11 @@ app.use('/', authRoutes);
 app.use('/rooms', roomRoutes);
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log('user connected');
+  socket.broadcast.emit('user-connected');
   socket.on('disconnect', function(){
     console.log('user disconnected');
+    socket.broadcast.emit('user-disconnected');
   });
   socket.on('add-message', (message) => {
     io.emit('message', {type:'new-message', text: message});

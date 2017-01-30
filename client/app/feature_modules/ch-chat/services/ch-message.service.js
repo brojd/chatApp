@@ -28,4 +28,22 @@ export class ChMessageService {
     return observable;
   }
   
+  notifyUserConnected() {
+    let observable = new Observable(observer => {
+      this.socket.on('user-connected', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+  
+  notifyUserDisconnected() {
+    let observable = new Observable(observer => {
+      this.socket.on('user-disconnected', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+  
 }

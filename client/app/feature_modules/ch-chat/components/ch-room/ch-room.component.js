@@ -31,11 +31,20 @@ export class ChRoomComponent {
       });
     this.chatConnection = this.messageService.getMessages().subscribe(message => {
       this.messages.push(message);
-    })
+    });
+    this.listenUserConnected = this.messageService.notifyUserConnected().subscribe(
+      () => console.log('user connected'),
+      err => {debugger;}
+    );
+    this.listenUserDisconnected = this.messageService.notifyUserDisconnected().subscribe(
+      () => console.log('user disconnected')
+    );
   }
   
   ngOnDestroy() {
     this.chatConnection.unsubscribe();
     this.routeSubscription.unsubscribe();
+    this.listenUserConnected.unsubscribe();
+    this.listenUserDisconnected.unsubscribe();
   }
 }
