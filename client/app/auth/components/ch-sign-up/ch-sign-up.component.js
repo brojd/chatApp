@@ -18,24 +18,23 @@ export class ChSignUpComponent {
     this._router = router;
     this.error = '';
 
-    this.loginForm = builder.group({
+    this.signupForm = builder.group({
+      Nickname: ['', [Validators.required, Validators.pattern(/^\S*$/), Validators.minLength(3)]],
       Email: ['', [Validators.required, validatorFactory('email')]],
       Password: ['', Validators.required]
     });
   }
 
   onSubmit(credentials) {
-    this._userService.login(credentials).subscribe(
+    debugger;
+    this._userService.signup(credentials).subscribe(
       result => {
         if (result) {
           this.error = '';
           this._router.navigate(['']);
         }
       },
-      err => {
-        if (err.status === 401) {
-          this.error = 'Invalid login or password';
-        }
-      });
+      err => this.error = 'Signing up failed'
+    );
   }
 }
