@@ -1,11 +1,5 @@
-<div class="center aligned pt-login">
-	<div class="ui header">Log in</div>
-	<div>
-		Email: admin@admin.com
-	</div>
-	<div>
-		Password: 111
-	</div>
+<div class="center aligned pt-signup">
+	<div class="ui header">Sign up</div>
 	<div class="ui left aligned segment">
 		<form (ngSubmit)="onSubmit(loginForm.value)" [formGroup]="loginForm" class="ui form">
 			<div class="field">
@@ -29,7 +23,7 @@
 				Password is required
 			</div>
 			<div *ngIf="error">{{error}}</div>
-			<button type="submit" [disabled]="!loginForm.valid" class="ui button pt-loginButton">Login</button>
+			<button type="submit" [disabled]="!loginForm.valid" class="ui button pt-signupButton">Login</button>
 		</form>
 	</div>
 </div>

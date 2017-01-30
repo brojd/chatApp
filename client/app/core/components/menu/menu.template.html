@@ -3,6 +3,7 @@
     <a class="item" [routerLink]="['/about']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">About</a>
     <div class="right menu">
         <a class="item" [routerLink]="['/login']" *ngIf="!(getLoggedIn() | async)">Log in</a>
+        <a class="item" [routerLink]="['/signup']" *ngIf="!(getLoggedIn() | async)">Sign up</a>
         <a class="item" href="#" (click)="logout()" *ngIf="getLoggedIn() | async">Log out</a>
     </div>
 </div>
