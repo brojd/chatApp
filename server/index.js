@@ -25,15 +25,15 @@ app.use('/rooms', roomRoutes);
 
 io.on('connection', (socket) => {
   
-  let roomId = socket.handshake.query.roomId;
+  const roomId = socket.handshake.query.roomId;
+  const nickname = socket.handshake.query.nickname;
   socket.room = roomId;
   socket.join(roomId);
-  socket.to(roomId).emit('user-connected');
+  socket.to(roomId).emit('user-connected', nickname);
   
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
+  socket.on('disconnect', () => {
     socket.leave(roomId);
-    socket.to(roomId).emit('user-disconnected');
+    socket.to(roomId).emit('user-disconnected', nickname);
   });
   
   socket.on('add-message', (message) => {

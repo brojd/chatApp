@@ -3,4 +3,7 @@
 		{{message.date | date:'mediumTime'}} {{message.nickname}} {{message.text}}
 	</div>
 	<input [(ngModel)]="messageText"  /><button (click)="sendMessage()">Send</button>
+	<div class="ui list" *ngFor="let info of feed">
+		{{info}}
+	</div>
 </section>

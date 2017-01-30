@@ -11,7 +11,6 @@ export class ChChatService {
   constructor(http: Http, userService: UserService) {
     this._http = http;
     this.userService = userService;
-    this.userNickname = userService.getCurrentUserDetails().nickname;
   }
   
   sendMessage(message){
@@ -19,8 +18,9 @@ export class ChChatService {
   }
   
   getMessages(roomId) {
+    let userNickname = this.userService.getCurrentUserDetails().nickname;
     let observable = new Observable(observer => {
-      this.socket = io(API_URL, {query: `roomId=${roomId}`});
+      this.socket = io(API_URL, {query: `roomId=${roomId}&nickname=${userNickname}`});
       this.socket.on('message', (data) => {
         observer.next(data);
       });
@@ -33,8 +33,8 @@ export class ChChatService {
   
   notifyUserConnected() {
     let observable = new Observable(observer => {
-      this.socket.on('user-connected', (data) => {
-        observer.next(data);
+      this.socket.on('user-connected', (nickname) => {
+        observer.next(nickname);
       });
     });
     return observable;
@@ -42,8 +42,8 @@ export class ChChatService {
   
   notifyUserDisconnected() {
     let observable = new Observable(observer => {
-      this.socket.on('user-disconnected', (data) => {
-        observer.next(data);
+      this.socket.on('user-disconnected', (nickname) => {
+        observer.next(nickname);
       });
     });
     return observable;

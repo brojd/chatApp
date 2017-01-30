@@ -19,6 +19,7 @@ export class ChRoomComponent {
     this.messageText = '';
     this.userService = userService;
     this.userNickname = userService.getCurrentUserDetails().nickname;
+    this.feed = [];
   }
   
   sendMessage(){
@@ -42,10 +43,10 @@ export class ChRoomComponent {
         });
       });
     this.listenUserConnected = this.chatService.notifyUserConnected().subscribe(
-      () => console.log('user connected')
+      (nickname) => this.feed.push(`${nickname} has joined the chat`)
     );
     this.listenUserDisconnected = this.chatService.notifyUserDisconnected().subscribe(
-      () => console.log('user disconnected')
+      (nickname) => this.feed.push(`${nickname} has left the chat`)
     );
   }
   
