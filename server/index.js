@@ -22,9 +22,15 @@ app.use(bodyParser.json());
 app.use('/', authRoutes);
 app.use('/rooms', roomRoutes);
 
-io.on('connection', function(socket){
+io.on('connection', (socket) => {
   console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+  socket.on('add-message', (message) => {
+    io.emit('message', {type:'new-message', text: message});
+  });
 });
 
-app.listen(config.port);
+http.listen(config.port);
 console.log(`Listening on port ${config.port}`);

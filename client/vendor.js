@@ -11,3 +11,4 @@ import '@angular/http';
 import '@angular/forms';
 
 import 'ng2-translate';
+//import 'socket.io/lib';

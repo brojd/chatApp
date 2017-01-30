@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import template from './ch-room.template.html';
 import styles from './ch-room.stylesheet.scss';
+import { ChMessageService } from '../../services/ch-message.service';
 
 @Component({
   selector: 'ch-room',
@@ -10,16 +11,31 @@ import styles from './ch-room.stylesheet.scss';
 })
 export class ChRoomComponent {
   
-  constructor(route: ActivatedRoute) {
+  constructor(route: ActivatedRoute, messageService: ChMessageService) {
     this.route = route;
+    this.messageService = messageService;
+    this.messages = [];
+    this.message = '';
+  }
+  
+  sendMessage(){
+    this.messageService.sendMessage(this.message);
+    this.message = '';
   }
   
   ngOnInit() {
-    this.subscription = this.route
+    this.routeSubscription = this.route
       .params
       .subscribe(params => {
         console.log(params.id);
       });
+    this.chatConnection = this.messageService.getMessages().subscribe(message => {
+      this.messages.push(message);
+    })
   }
   
+  ngOnDestroy() {
+    this.chatConnection.unsubscribe();
+    this.routeSubscription.unsubscribe();
+  }
 }
