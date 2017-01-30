@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 import template from './ch-room.template.html';
 import styles from './ch-room.stylesheet.scss';
 
@@ -9,6 +10,16 @@ import styles from './ch-room.stylesheet.scss';
 })
 export class ChRoomComponent {
   
-  constructor() {}
+  constructor(route: ActivatedRoute) {
+    this.route = route;
+  }
+  
+  ngOnInit() {
+    this.subscription = this.route
+      .params
+      .subscribe(params => {
+        console.log(params.id);
+      });
+  }
   
 }
