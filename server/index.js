@@ -22,17 +22,26 @@ app.use(bodyParser.json());
 app.use('/', authRoutes);
 app.use('/rooms', roomRoutes);
 
+
 io.on('connection', (socket) => {
-  console.log('user connected');
-  socket.broadcast.emit('user-connected');
+  
+  let roomId = socket.handshake.query.roomId;
+  socket.room = roomId;
+  socket.join(roomId);
+  socket.to(roomId).emit('user-connected');
+  
   socket.on('disconnect', function(){
     console.log('user disconnected');
-    socket.broadcast.emit('user-disconnected');
+    socket.leave(roomId);
+    socket.to(roomId).emit('user-disconnected');
   });
+  
   socket.on('add-message', (message) => {
-    io.emit('message', message);
+    io.to(roomId).emit('message', message);
   });
+  
 });
+
 
 http.listen(config.port);
 console.log(`Listening on port ${config.port}`);

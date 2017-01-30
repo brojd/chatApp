@@ -3,21 +3,24 @@ import { Http } from '@angular/http';
 import io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
 import { API_URL } from '../../../../config';
+import { UserService } from '../../../auth/services/user/user.service';
 
 @Injectable()
-export class ChMessageService {
+export class ChChatService {
   
-  constructor(http: Http) {
+  constructor(http: Http, userService: UserService) {
     this._http = http;
+    this.userService = userService;
+    this.userNickname = userService.getCurrentUserDetails().nickname;
   }
   
   sendMessage(message){
     this.socket.emit('add-message', message);
   }
   
-  getMessages() {
+  getMessages(roomId) {
     let observable = new Observable(observer => {
-      this.socket = io(API_URL);
+      this.socket = io(API_URL, {query: `roomId=${roomId}`});
       this.socket.on('message', (data) => {
         observer.next(data);
       });

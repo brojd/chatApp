@@ -7,12 +7,12 @@ import { ChChatComponent } from './components/ch-chat/ch-chat.component';
 import { ChLobbyComponent } from './components/ch-lobby/ch-lobby.component';
 import { ChRoomComponent } from './components/ch-room/ch-room.component';
 import { ChRoomService } from './services/ch-room.service';
-import { ChMessageService } from './services/ch-message.service';
+import { ChChatService } from './services/ch-chat.service';
 
 @NgModule({
   imports: [ CommonModule, RouterModule, FormsModule, ChCommonModule ],
   declarations: [ ChChatComponent, ChLobbyComponent, ChRoomComponent ],
   exports:      [ ChChatComponent, ChLobbyComponent, ChRoomComponent ],
-  providers: [ ChRoomService, ChMessageService ]
+  providers: [ ChRoomService, ChChatService ]
 })
 export class ChChatModule { }

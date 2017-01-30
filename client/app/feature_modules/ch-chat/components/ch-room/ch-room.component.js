@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import template from './ch-room.template.html';
 import styles from './ch-room.stylesheet.scss';
-import { ChMessageService } from '../../services/ch-message.service';
+import { ChChatService } from '../../services/ch-chat.service';
 import { UserService } from '../../../../auth/services/user/user.service';
 
 @Component({
@@ -12,9 +12,9 @@ import { UserService } from '../../../../auth/services/user/user.service';
 })
 export class ChRoomComponent {
   
-  constructor(route: ActivatedRoute, messageService: ChMessageService, userService: UserService) {
+  constructor(route: ActivatedRoute, chatService: ChChatService, userService: UserService) {
     this.route = route;
-    this.messageService = messageService;
+    this.chatService = chatService;
     this.messages = [];
     this.messageText = '';
     this.userService = userService;
@@ -25,9 +25,10 @@ export class ChRoomComponent {
     let message = {
       nickname: this.userNickname,
       date: new Date(),
-      text: this.messageText
+      text: this.messageText,
+      roomId: this.roomId
     };
-    this.messageService.sendMessage(message);
+    this.chatService.sendMessage(message);
     this.messageText = '';
   }
   
@@ -35,16 +36,15 @@ export class ChRoomComponent {
     this.routeSubscription = this.route
       .params
       .subscribe(params => {
-        console.log(params.id);
+        this.roomId = params.id;
+        this.listenMessages = this.chatService.getMessages(params.id).subscribe(message => {
+          this.messages.push(message);
+        });
       });
-    this.listenMessages = this.messageService.getMessages().subscribe(message => {
-      this.messages.push(message);
-    });
-    this.listenUserConnected = this.messageService.notifyUserConnected().subscribe(
-      () => console.log('user connected'),
-      err => {debugger;}
+    this.listenUserConnected = this.chatService.notifyUserConnected().subscribe(
+      () => console.log('user connected')
     );
-    this.listenUserDisconnected = this.messageService.notifyUserDisconnected().subscribe(
+    this.listenUserDisconnected = this.chatService.notifyUserDisconnected().subscribe(
       () => console.log('user disconnected')
     );
   }
