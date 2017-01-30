@@ -24,7 +24,9 @@ export class UserService {
       .map(res => res.json())
       .map(res => {
         if (res.success) {
-          this._storage.setAuthToken(res.token); // this should be a real token generated on backend
+          this._storage.setAuthToken(res.token);
+          this._storage.setUserDetails(res.nickname);
+          debugger;
           this._loggedIn.next(true);
         }
         return res;
@@ -49,6 +51,10 @@ export class UserService {
     return this._http
       .post(`${API_URL}/signup`, credentials)
       .map(res => res.json())
+  }
+  
+  getCurrentUserDetails() {
+    return this._storage.getUserDetails();
   }
   
 }

@@ -13,31 +13,19 @@ export class StorageService {
     localStorage.removeItem(AUTH_KEY);
   }
   
-  setUserDetails(id, name, lastName, fullName, positionId) {
-    localStorage.setItem('userId', id);
-    localStorage.setItem('firstName', name);
-    localStorage.setItem('lastName', lastName);
-    localStorage.setItem('fullName', fullName);
-    localStorage.setItem('positionId', positionId);
+  setUserDetails(nickname) {
+    localStorage.setItem('nickname', nickname);
+  }
+  
+  getUserDetails() {
+    let result = {
+      nickname: localStorage.getItem('nickname')
+    };
+    return result;
   }
   
   removeUserDetails() {
-    localStorage.removeItem('userId');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
-    localStorage.removeItem('fullName');
-  }
-  
-  getUserName() {
-    return localStorage.getItem('firstName');
-  }
-  
-  getUserId() {
-    return localStorage.getItem('userId');
-  }
-  
-  getPositionId() {
-    return localStorage.getItem('positionId');
+    localStorage.removeItem('nickname');
   }
 
 }

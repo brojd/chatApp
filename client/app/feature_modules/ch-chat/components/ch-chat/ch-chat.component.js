@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import template from './ch-chat.template.html';
 import styles from './ch-chat.stylesheet.scss';
+import { UserService } from '../../../../auth';
 
 @Component({
   selector: 'ch-chat',
@@ -9,6 +10,9 @@ import styles from './ch-chat.stylesheet.scss';
 })
 export class ChChatComponent {
   
-  constructor() {}
+  constructor(userService: UserService) {
+    this.userService = userService;
+    this.userNickname = userService.getCurrentUserDetails().nickname;
+  }
   
 }
