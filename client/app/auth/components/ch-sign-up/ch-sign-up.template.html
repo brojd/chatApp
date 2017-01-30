@@ -40,7 +40,7 @@
 					 class="ui negative message">
 				Password is required
 			</div>
-			<div *ngIf="error">{{error}}</div>
+			<div *ngIf="error" class="ui negative message">{{error}}</div>
 			<button type="submit" [disabled]="!signupForm.valid" class="ui button pt-signupButton">Sign up</button>
 		</form>
 	</div>

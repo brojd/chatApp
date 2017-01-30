@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
-var roomSchema = new Schema({
+let roomSchema = new Schema({
   name: String
 });
 
-var Room = mongoose.model('Room', roomSchema);
+let Room = mongoose.model('Room', roomSchema);
 
 module.exports = Room;

@@ -26,12 +26,12 @@ export class ChSignUpComponent {
   }
 
   onSubmit(credentials) {
-    debugger;
     this._userService.signup(credentials).subscribe(
       result => {
-        if (result) {
-          this.error = '';
-          this._router.navigate(['']);
+        if (result.success === true) {
+          this._router.navigate(['/login']);
+        } else if (result.success === false) {
+          this.error = result.message;
         }
       },
       err => this.error = 'Signing up failed'

@@ -46,7 +46,6 @@ export class UserService {
   }
   
   signup(credentials) {
-    debugger;
     return this._http
       .post(`${API_URL}/signup`, credentials)
       .map(res => res.json())
