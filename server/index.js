@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('user-disconnected');
   });
   socket.on('add-message', (message) => {
-    io.emit('message', {type:'new-message', text: message});
+    io.emit('message', message);
   });
 });
 

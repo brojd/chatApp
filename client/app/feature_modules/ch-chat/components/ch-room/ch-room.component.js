@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import template from './ch-room.template.html';
 import styles from './ch-room.stylesheet.scss';
 import { ChMessageService } from '../../services/ch-message.service';
+import { UserService } from '../../../../auth/services/user/user.service';
 
 @Component({
   selector: 'ch-room',
@@ -11,16 +12,23 @@ import { ChMessageService } from '../../services/ch-message.service';
 })
 export class ChRoomComponent {
   
-  constructor(route: ActivatedRoute, messageService: ChMessageService) {
+  constructor(route: ActivatedRoute, messageService: ChMessageService, userService: UserService) {
     this.route = route;
     this.messageService = messageService;
     this.messages = [];
-    this.message = '';
+    this.messageText = '';
+    this.userService = userService;
+    this.userNickname = userService.getCurrentUserDetails().nickname;
   }
   
   sendMessage(){
-    this.messageService.sendMessage(this.message);
-    this.message = '';
+    let message = {
+      nickname: this.userNickname,
+      date: new Date(),
+      text: this.messageText
+    };
+    this.messageService.sendMessage(message);
+    this.messageText = '';
   }
   
   ngOnInit() {
@@ -29,7 +37,7 @@ export class ChRoomComponent {
       .subscribe(params => {
         console.log(params.id);
       });
-    this.chatConnection = this.messageService.getMessages().subscribe(message => {
+    this.listenMessages = this.messageService.getMessages().subscribe(message => {
       this.messages.push(message);
     });
     this.listenUserConnected = this.messageService.notifyUserConnected().subscribe(
@@ -42,7 +50,7 @@ export class ChRoomComponent {
   }
   
   ngOnDestroy() {
-    this.chatConnection.unsubscribe();
+    this.listenMessages.unsubscribe();
     this.routeSubscription.unsubscribe();
     this.listenUserConnected.unsubscribe();
     this.listenUserDisconnected.unsubscribe();

@@ -1,6 +1,6 @@
 <section>
 	<div *ngFor="let message of messages">
-		{{message.text}}
+		{{message.date | date:'mediumTime'}} {{message.nickname}} {{message.text}}
 	</div>
-	<input [(ngModel)]="message"  /><button (click)="sendMessage()">Send</button>
+	<input [(ngModel)]="messageText"  /><button (click)="sendMessage()">Send</button>
 </section>
