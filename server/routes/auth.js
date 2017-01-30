@@ -6,15 +6,19 @@ let User = require('../models/user.model');
 
 router.post('/login', (req, res) => {
   let result = { success: false };
-  User.find({ 'email': req.body.Email }, (err, users) => {
+  User.findOne({ 'email': req.body.Email }, (err, user) => {
     if (err) throw err;
-    
+    if (user && (user.password === req.body.Password)) {
+      result.success = true;
+      result.token = jwt.sign({ login: req.body.Login }, config.jwt_secret);
+    } else if (user) {
+      result.message = 'Password is not correct';
+    } else if (!user) {
+      result.message = 'User does not exist';
+    }
+    res.send(result);
   });
-  if (req.body.Email === 'admin@admin.com' && req.body.Password === '111') {
-    result.success = true;
-    result.token = jwt.sign({ login: req.body.Login }, config.jwt_secret);
-  }
-  res.send(result);
+  
 });
 
 router.post('/signup', (req, res) => {

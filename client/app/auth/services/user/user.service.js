@@ -27,7 +27,7 @@ export class UserService {
           this._storage.setAuthToken(res.token); // this should be a real token generated on backend
           this._loggedIn.next(true);
         }
-        return res.success;
+        return res;
       })
   }
 

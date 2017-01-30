@@ -25,17 +25,18 @@ export class ChLogInComponent {
   }
 
   onSubmit(credentials) {
+    this.error = '';
     this._userService.login(credentials).subscribe(
       result => {
-        if (result) {
+        if (result.success === true) {
           this.error = '';
           this._router.navigate(['']);
+        } else if (result.success === false) {
+          debugger;
+          this.error = result.message;
         }
       },
-      err => {
-        if (err.status === 401) {
-          this.error = 'Invalid login or password';
-        }
-      });
+      err => this.error = 'Login failed'
+    );
   }
 }
