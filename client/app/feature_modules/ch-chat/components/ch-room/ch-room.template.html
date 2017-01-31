@@ -1,10 +1,16 @@
-<section>
-	<div class=" ui header">{{roomName}}</div>
-	<div *ngFor="let message of messages">
-		{{message.date | date:'mediumTime'}} {{message.nickname}} {{message.text}}
-	</div>
-	<input [(ngModel)]="messageText"  /><button (click)="sendMessage()">Send</button>
-	<div class="ui list" *ngFor="let info of feed">
-		{{info}}
-	</div>
+<section class="ui center aligned grid">
+	<aside class="ui list three wide column ch-feed">
+		<div class="item" *ngFor="let info of feed">{{info}}</div>
+	</aside>
+	<section class="ten wide left aligned column ch-chatWindow">
+		<div class="ui segment">
+			<div class="ui centered header">{{roomName}}</div>
+			<div *ngFor="let message of messages">
+				{{message.date | date:'mediumTime'}} {{message.nickname}} {{message.text}}
+			</div>
+			<div class="ui center aligned form">
+				<input [(ngModel)]="messageText"/><button (click)="sendMessage()">Send</button>
+			</div>
+		</div>
+	</section>
 </section>
