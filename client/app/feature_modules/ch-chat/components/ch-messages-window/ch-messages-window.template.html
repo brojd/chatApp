@@ -1,5 +1,10 @@
-<div class="ch-messages-window" #scrollMeDown>
-	<div *ngFor="let message of messages">
+<section class="ch-messages-window" #scrollMeDown>
+	<div *ngFor="let message of messages; let index = index;">
+		<div *ngIf="messages[index+1] &&!areDatesTheSame(message.date, messages[index+1].date) ||
+							  messages[index-1] && !areDatesTheSame(message.date, messages[index-1].date)"
+				 class="ui small header">
+			{{message.date | date:'fullDate'}}
+		</div>
 		{{message.date | date:'mediumTime'}}: {{message.nickname}} {{message.text}}
 	</div>
-</div>
+</section>

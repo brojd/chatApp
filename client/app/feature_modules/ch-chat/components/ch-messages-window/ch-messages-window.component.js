@@ -20,6 +20,12 @@ export class ChMessagesWindowComponent {
     } catch(err) { }
   }
   
+  areDatesTheSame (date1, date2) {
+    let dateA = new Date(date1);
+    let dateB = new Date(date2);
+    return dateA.toDateString() === dateB.toDateString();
+  }
+  
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
