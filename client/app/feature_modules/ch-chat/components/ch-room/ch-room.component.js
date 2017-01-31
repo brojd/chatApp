@@ -42,10 +42,13 @@ export class ChRoomComponent {
       .subscribe(params => {
         this.roomId = params.id;
         this.roomName = this.roomService.getRoom(params.id).subscribe(
-          res => this.roomName = res.name,
+          room => {
+            this.roomName = room.name;
+            this.messages = room.messages;
+          },
           err => console.log(err)
         );
-        this.listenMessages = this.chatService.getMessages(params.id).subscribe(message => {
+        this.listenMessages = this.chatService.connectToChat(params.id).subscribe(message => {
           this.messages.push(message);
         });
       });

@@ -17,7 +17,7 @@ export class ChChatService {
     this.socket.emit('add-message', message);
   }
   
-  getMessages(roomId) {
+  connectToChat(roomId) {
     let userNickname = this.userService.getCurrentUserDetails().nickname;
     let observable = new Observable(observer => {
       this.socket = io(API_URL, {query: `roomId=${roomId}&nickname=${userNickname}`});

@@ -2,6 +2,7 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let config = require('./config');
+let chatConfig = require('./chat-config');
 let authRoutes = require('./routes/auth');
 let roomRoutes = require('./routes/room');
 let mongoose = require('mongoose');
@@ -42,7 +43,7 @@ io.on('connection', (socket) => {
       if (err) throw err;
       let messages = room.messages.slice();
       messages.push(message);
-      if (messages.length > 10) {
+      if (messages.length > chatConfig.messagesLimitPerRoom) {
         messages.shift();
       }
       room.messages = messages;

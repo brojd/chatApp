@@ -4,12 +4,10 @@
 			{{info.date | date:'mediumTime'}}: {{info.nickname}} {{info.info}}
 		</div>
 	</aside>
-	<section class="ten wide left aligned column ch-chatWindow">
+	<section class="ten wide left aligned column">
 		<div class="ui segment">
-			<div class="ui centered header">{{roomName}}</div>
-			<div *ngFor="let message of messages">
-				{{message.date | date:'mediumTime'}}: {{message.nickname}} {{message.text}}
-			</div>
+			<header class="ui centered header">{{roomName}}</header>
+			<ch-messages-window [messages]="messages"></ch-messages-window>
 			<div class="ui center aligned form">
 				<textarea [(ngModel)]="messageText" (keyup.enter)="sendMessage()"></textarea>
 			</div>
