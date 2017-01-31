@@ -1,9 +1,7 @@
 <section class="ui center aligned grid">
-	<aside class="ui list three wide column ch-feed">
-		<div class="item" *ngFor="let info of feed">
-			{{info.date | date:'mediumTime'}}: {{info.nickname}} {{info.info}}
-		</div>
-	</aside>
+	<section class="ui list three wide column">
+		<ch-feed [feed]="feed"></ch-feed>
+	</section>
 	<section class="ten wide left aligned column">
 		<div class="ui segment">
 			<header class="ui centered header">{{roomName}}</header>
