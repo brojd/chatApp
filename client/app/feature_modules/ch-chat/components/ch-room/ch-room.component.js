@@ -50,10 +50,18 @@ export class ChRoomComponent {
         });
       });
     this.listenUserConnected = this.chatService.notifyUserConnected().subscribe(
-      (nickname) => this.feed.push(`${nickname} has joined the chat`)
+      (data) => this.feed.push({
+        nickname: data.nickname,
+        date: data.date,
+        info: 'has joined the chat'
+      })
     );
     this.listenUserDisconnected = this.chatService.notifyUserDisconnected().subscribe(
-      (nickname) => this.feed.push(`${nickname} has left the chat`)
+      (data) => this.feed.push({
+        nickname: data.nickname,
+        date: data.date,
+        info: 'has left the chat'
+      })
     );
   }
   

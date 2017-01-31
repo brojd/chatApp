@@ -33,8 +33,8 @@ export class ChChatService {
   
   notifyUserConnected() {
     let observable = new Observable(observer => {
-      this.socket.on('user-connected', (nickname) => {
-        observer.next(nickname);
+      this.socket.on('user-connected', (data) => {
+        observer.next(data);
       });
     });
     return observable;
@@ -42,8 +42,8 @@ export class ChChatService {
   
   notifyUserDisconnected() {
     let observable = new Observable(observer => {
-      this.socket.on('user-disconnected', (nickname) => {
-        observer.next(nickname);
+      this.socket.on('user-disconnected', (data) => {
+        observer.next(data);
       });
     });
     return observable;

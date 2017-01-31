@@ -29,11 +29,11 @@ io.on('connection', (socket) => {
   const nickname = socket.handshake.query.nickname;
   socket.room = roomId;
   socket.join(roomId);
-  socket.to(roomId).emit('user-connected', nickname);
+  socket.to(roomId).emit('user-connected', { nickname: nickname, date: new Date() });
   
   socket.on('disconnect', () => {
     socket.leave(roomId);
-    socket.to(roomId).emit('user-disconnected', nickname);
+    socket.to(roomId).emit('user-disconnected', { nickname: nickname, date: new Date() });
   });
   
   socket.on('add-message', (message) => {

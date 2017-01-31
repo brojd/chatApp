@@ -1,6 +1,8 @@
 <section class="ui center aligned grid">
 	<aside class="ui list three wide column ch-feed">
-		<div class="item" *ngFor="let info of feed">{{info}}</div>
+		<div class="item" *ngFor="let info of feed">
+			{{info.date | date:'mediumTime'}}: {{info.nickname}} {{info.info}}
+		</div>
 	</aside>
 	<section class="ten wide left aligned column ch-chatWindow">
 		<div class="ui segment">
