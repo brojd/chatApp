@@ -29,8 +29,7 @@ export class ChRoomComponent {
     let message = {
       nickname: this.userNickname,
       date: new Date(),
-      text: this.messageText,
-      roomId: this.roomId
+      text: this.messageText
     };
     this.chatService.sendMessage(message);
     this.messageText = '';
@@ -41,34 +40,25 @@ export class ChRoomComponent {
       .params
       .subscribe(params => {
         this.roomId = params.id;
-        this.roomName = this.roomService.getRoom(params.id).subscribe(
-          room => {
-            this.roomName = room.name;
-            this.messages = room.messages;
-          },
-          err => console.log(err)
-        );
-        this.listenMessages = this.chatService.connectToChat(params.id).subscribe(message => {
-          this.messages.push(message);
+        this.connectToChat = this.chatService.connectToChat(params.id).subscribe(room => {
+          this.roomName = room.name;
+          this.feed = room.feed;
+          this.messages = room.messages;
         });
       });
+    this.listenMessages = this.chatService.listenNewMessages().subscribe(
+      message => this.messages.push(message)
+    );
     this.listenUserConnected = this.chatService.notifyUserConnected().subscribe(
-      (data) => this.feed.push({
-        nickname: data.nickname,
-        date: data.date,
-        info: 'has joined the chat'
-      })
+      (data) => this.feed = data.feed.slice()
     );
     this.listenUserDisconnected = this.chatService.notifyUserDisconnected().subscribe(
-      (data) => this.feed.push({
-        nickname: data.nickname,
-        date: data.date,
-        info: 'has left the chat'
-      })
+      (data) => this.feed = data.feed.slice()
     );
   }
   
   ngOnDestroy() {
+    this.connectToChat.unsubscribe();
     this.listenMessages.unsubscribe();
     this.routeSubscription.unsubscribe();
     this.listenUserConnected.unsubscribe();

@@ -31,15 +31,48 @@ io.on('connection', (socket) => {
   const nickname = socket.handshake.query.nickname;
   socket.room = roomId;
   socket.join(roomId);
-  socket.to(roomId).emit('user-connected', { nickname: nickname, date: new Date() });
+  Room.findOne({ _id: roomId }, (err, room) => {
+    if (err) throw err;
+    let feed = room.feed.slice();
+    feed.push({
+      nickname: nickname,
+      date: new Date(),
+      info: ' has joined the chat'
+    });
+    if (feed.length > chatConfig.feedLimitPerRoom) {
+      feed.shift();
+    }
+    room.feed = feed;
+    room.save((err) => {
+      if (err) throw err;
+      socket.to(roomId).emit('user-connected', { feed: feed });
+    })
+  });
   
   socket.on('disconnect', () => {
-    socket.leave(roomId);
-    socket.to(roomId).emit('user-disconnected', { nickname: nickname, date: new Date() });
+    Room.findOne({ _id: roomId }, (err, room) => {
+      if (err) throw err;
+      let feed = room.feed.slice();
+      feed.push({
+        nickname: nickname,
+        date: new Date(),
+        info: ' has left the chat'
+      });
+      if (feed.length > chatConfig.feedLimitPerRoom) {
+        feed.shift();
+      }
+      room.feed = feed;
+      console.log(room);
+      room.save((err) => {
+        if (err) throw err;
+        socket.to(roomId).emit('user-disconnected', { feed: feed });
+        socket.leave(roomId);
+      });
+    });
   });
   
   socket.on('add-message', (message) => {
-    Room.findOne({ _id: message.roomId }, (err, room) => {
+    Room.findOne({ _id: roomId }, (err, room) => {
       if (err) throw err;
       let messages = room.messages.slice();
       messages.push(message);

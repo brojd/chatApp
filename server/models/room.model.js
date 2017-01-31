@@ -3,7 +3,16 @@ let Schema = mongoose.Schema;
 
 let roomSchema = new Schema({
   name: String,
-  messages: []
+  messages: [{
+    nickname: String,
+    date: Date,
+    text: String
+  }],
+  feed: [{
+    nickname: String,
+    date: Date,
+    info: String
+  }]
 });
 
 let Room = mongoose.model('Room', roomSchema);
