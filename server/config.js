@@ -7,6 +7,5 @@ module.exports = {
   env: environment,
   port: process.env.PORT || 9000,
   staticPath: path.resolve(__dirname, localStaticPath),
-  jwt_secret: process.env.JWT_SECRET || 'angular2-secret',
-  api_url: 'http://aac-vm.universe.dart.spb:8080'
+  jwt_secret: process.env.JWT_SECRET || 'angular2-secret'
 };

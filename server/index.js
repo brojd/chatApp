@@ -5,6 +5,7 @@ let config = require('./config');
 let authRoutes = require('./routes/auth');
 let roomRoutes = require('./routes/room');
 let mongoose = require('mongoose');
+let Room = require('./models/room.model');
 
 let app = express();
 let http = require('http').Server(app);
@@ -37,7 +38,19 @@ io.on('connection', (socket) => {
   });
   
   socket.on('add-message', (message) => {
-    io.to(roomId).emit('message', message);
+    Room.findOne({ _id: message.roomId }, (err, room) => {
+      if (err) throw err;
+      let messages = room.messages.slice();
+      messages.push(message);
+      if (messages.length > 10) {
+        messages.shift();
+      }
+      room.messages = messages;
+      room.save((err) => {
+        if (err) throw err;
+        io.to(roomId).emit('message', message);
+      })
+    });
   });
   
 });
