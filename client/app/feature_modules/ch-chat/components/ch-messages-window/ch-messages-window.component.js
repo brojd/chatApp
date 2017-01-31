@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import template from './ch-messages-window.template.html';
 import styles from './ch-messages-window.stylesheet.scss';
 
@@ -10,8 +10,18 @@ import styles from './ch-messages-window.stylesheet.scss';
 export class ChMessagesWindowComponent {
   
   @Input() messages = [];
+  @ViewChild('scrollMeDown') messagesWindow;
   
-  constructor() {
+  constructor() {}
+  
+  scrollToBottom() {
+    try {
+      this.messagesWindow.nativeElement.scrollTop = this.messagesWindow.nativeElement.scrollHeight;
+    } catch(err) { }
+  }
+  
+  ngAfterViewChecked() {
+    this.scrollToBottom();
   }
   
 }
