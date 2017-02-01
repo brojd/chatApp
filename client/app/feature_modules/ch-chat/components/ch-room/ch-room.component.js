@@ -5,6 +5,7 @@ import styles from './ch-room.stylesheet.scss';
 import { ChChatService } from '../../services/ch-chat.service';
 import { ChRoomService } from '../../services/ch-room.service';
 import { UserService } from '../../../../auth/services/user/user.service';
+import './loadingFile.gif';
 
 @Component({
   selector: 'ch-room',
@@ -23,9 +24,11 @@ export class ChRoomComponent {
     this.userNickname = userService.getCurrentUserDetails().nickname;
     this.feed = [];
     this.roomName = '';
+    this.isFileUploading = false;
+    this.isFileUploaded = false;
   }
   
-  sendMessage(){
+  sendMessage() {
     let message = {
       nickname: this.userNickname,
       date: new Date(),
@@ -33,6 +36,26 @@ export class ChRoomComponent {
     };
     this.chatService.sendMessage(message);
     this.messageText = '';
+  }
+  
+  handleUploadFile(event) {
+    let file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.onloadstart = (e) => {
+      this.isFileUploading = true;
+    };
+    fileReader.onloadend = (e) => {
+      this.isFileUploading = false;
+      this.isFileUploaded = true;
+      this.fileData = e.target.result;
+      this.uploadedFile = file;
+    };
+    fileReader.readAsText(file);
+  }
+  
+  sendFile() {
+    this.isFileUploaded = false;
+    this.chatService.sendFile(this.uploadedFile.name, this.fileData);
   }
   
   ngOnInit() {

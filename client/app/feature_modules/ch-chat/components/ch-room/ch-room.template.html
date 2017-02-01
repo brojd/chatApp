@@ -9,6 +9,18 @@
 			<div class="ui center aligned form">
 				<textarea [(ngModel)]="messageText" (keyup.enter)="sendMessage()"></textarea>
 			</div>
+			<div class="ui form">
+				<div class="inline fields">
+					<div class="field">
+						<input type="file" (change)="handleUploadFile($event)"/>
+						<img src='./images/loadingFile.gif' alt='spinner' *ngIf="isFileUploading" />
+						<i class="checkmark green icon" *ngIf="isFileUploaded"></i>
+					</div>
+					<div class="field">
+						<button type="button" (click)="sendFile()" [disabled]="!isFileUploaded" class="ui button">Send file</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 </section>

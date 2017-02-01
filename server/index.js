@@ -62,7 +62,6 @@ io.on('connection', (socket) => {
         feed.shift();
       }
       room.feed = feed;
-      console.log(room);
       room.save((err) => {
         if (err) throw err;
         socket.to(roomId).emit('user-disconnected', { feed: feed });

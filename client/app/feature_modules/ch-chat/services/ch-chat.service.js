@@ -75,4 +75,12 @@ export class ChChatService {
     return observable;
   }
   
+  sendFile(name, fileData) {
+    let objToSend = {
+      name: name,
+      fileData: fileData
+    };
+    this.socket.emit('sendFile', objToSend);
+  }
+  
 }
