@@ -1,5 +1,6 @@
 'use strict';
 let express = require('express');
+let fs = require('fs');
 let bodyParser = require('body-parser');
 let config = require('./config');
 let chatConfig = require('./chat-config');
@@ -27,6 +28,7 @@ app.use('/rooms', roomRoutes);
 
 io.on('connection', (socket) => {
   
+  // user connected
   const roomId = socket.handshake.query.roomId;
   const nickname = socket.handshake.query.nickname;
   socket.room = roomId;
@@ -49,6 +51,7 @@ io.on('connection', (socket) => {
     })
   });
   
+  // user disconnected
   socket.on('disconnect', () => {
     Room.findOne({ _id: roomId }, (err, room) => {
       if (err) throw err;
@@ -70,6 +73,7 @@ io.on('connection', (socket) => {
     });
   });
   
+  // user sends text message
   socket.on('add-message', (message) => {
     Room.findOne({ _id: roomId }, (err, room) => {
       if (err) throw err;
@@ -85,6 +89,17 @@ io.on('connection', (socket) => {
       })
     });
   });
+  
+  //user uploads file
+  socket.on('fileUploaded', (fileObj) => {
+    const base64Data = fileObj.fileData.replace(/^data:image\/png;base64,/, "");
+    const pathToSave = `server/tmp/uploads/${fileObj.name}`;
+  
+    fs.writeFile(pathToSave, base64Data, 'base64', function(err) {
+      if (err) throw err;
+      console.log('saved');
+    });
+  })
   
 });
 

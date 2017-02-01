@@ -50,12 +50,12 @@ export class ChRoomComponent {
       this.fileData = e.target.result;
       this.uploadedFile = file;
     };
-    fileReader.readAsText(file);
+    fileReader.readAsDataURL(file);
   }
   
-  sendFile() {
+  uploadFileToServer() {
     this.isFileUploaded = false;
-    this.chatService.sendFile(this.uploadedFile.name, this.fileData);
+    this.chatService.uploadFileToServer(this.uploadedFile.name, this.fileData);
   }
   
   ngOnInit() {

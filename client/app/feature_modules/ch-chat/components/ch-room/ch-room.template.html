@@ -17,7 +17,7 @@
 						<i class="checkmark green icon" *ngIf="isFileUploaded"></i>
 					</div>
 					<div class="field">
-						<button type="button" (click)="sendFile()" [disabled]="!isFileUploaded" class="ui button">Send file</button>
+						<button type="button" (click)="uploadFileToServer()" [disabled]="!isFileUploaded" class="ui button">Send file</button>
 					</div>
 				</div>
 			</div>
