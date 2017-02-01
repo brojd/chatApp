@@ -6,7 +6,9 @@ let roomSchema = new Schema({
   messages: [{
     nickname: String,
     date: Date,
-    text: String
+    text: String,
+    hasFile: Boolean,
+    file: Object
   }],
   feed: [{
     nickname: String,

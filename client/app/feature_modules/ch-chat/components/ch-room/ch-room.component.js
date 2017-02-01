@@ -32,7 +32,9 @@ export class ChRoomComponent {
     let message = {
       nickname: this.userNickname,
       date: new Date(),
-      text: this.messageText
+      text: this.messageText,
+      hasFile: false,
+      file: {}
     };
     this.chatService.sendMessage(message);
     this.messageText = '';
@@ -55,7 +57,23 @@ export class ChRoomComponent {
   
   uploadFileToServer() {
     this.isFileUploaded = false;
-    this.chatService.uploadFileToServer(this.uploadedFile.name, this.fileData);
+    this.chatService.uploadFileToServer(this.uploadedFile, this.fileData).subscribe(
+      file => {
+        let message = {
+          nickname: this.userNickname,
+          date: new Date(),
+          text: `${this.userNickname} sent file`,
+          hasFile: true,
+          file: file
+        };
+        this.chatService.sendMessage(message);
+      },
+      err => console.log(err)
+    );
+  }
+  
+  handleDownloadFileClick(name) {
+    this.chatService.downloadFile(name);
   }
   
   ngOnInit() {

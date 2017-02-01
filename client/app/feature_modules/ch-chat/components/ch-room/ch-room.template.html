@@ -5,7 +5,7 @@
 	<section class="ten wide left aligned column">
 		<div class="ui segment">
 			<header class="ui centered header">{{roomName}}</header>
-			<ch-messages-window [messages]="messages"></ch-messages-window>
+			<ch-messages-window [messages]="messages" (onDownloadClicked)="handleDownloadFileClick($event)"></ch-messages-window>
 			<div class="ui center aligned form">
 				<textarea [(ngModel)]="messageText" (keyup.enter)="sendMessage()"></textarea>
 			</div>

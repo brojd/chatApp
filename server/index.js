@@ -67,7 +67,7 @@ io.on('connection', (socket) => {
       room.feed = feed;
       room.save((err) => {
         if (err) throw err;
-        socket.to(roomId).emit('user-disconnected', { feed: feed });
+        io.to(roomId).emit('user-disconnected', { feed: feed });
         socket.leave(roomId);
       });
     });
@@ -91,13 +91,14 @@ io.on('connection', (socket) => {
   });
   
   //user uploads file
-  socket.on('fileUploaded', (fileObj) => {
+  socket.on('fileUpload', (fileObj) => {
     const base64Data = fileObj.fileData.replace(/^data:image\/png;base64,/, "");
     const pathToSave = `server/tmp/uploads/${fileObj.name}`;
   
     fs.writeFile(pathToSave, base64Data, 'base64', function(err) {
       if (err) throw err;
-      console.log('saved');
+      console.log('now');
+      io.to(roomId).emit('fileUploadFinish', { name: fileObj.name, size: fileObj.size });
     });
   })
   

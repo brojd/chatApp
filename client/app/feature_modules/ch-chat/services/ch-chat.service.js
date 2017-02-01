@@ -43,9 +43,6 @@ export class ChChatService {
       this.socket.on('message', (message) => {
         observer.next(message);
       });
-      return () => {
-        this.socket.disconnect();
-      };
     });
     return observable;
   }
@@ -55,9 +52,6 @@ export class ChChatService {
       this.socket.on('user-connected', (data) => {
         observer.next(data);
       });
-      return () => {
-        this.socket.disconnect();
-      };
     });
     return observable;
   }
@@ -65,23 +59,29 @@ export class ChChatService {
   notifyUserDisconnected() {
     let observable = new Observable(observer => {
       this.socket.on('user-disconnected', (data) => {
-        console.log('discon');
         observer.next(data);
       });
-      return () => {
-        this.socket.disconnect();
-      };
     });
     return observable;
   }
   
-  uploadFileToServer(name, fileData) {
+  uploadFileToServer(file, fileData) {
     let objToSend = {
-      name: name,
+      name: file.name,
+      size: file.size,
       fileData: fileData
     };
+    this.socket.emit('fileUpload', objToSend);
+    let observable = new Observable(observer => {
+      this.socket.on('fileUploadFinish', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+  
+  downloadFile(name) {
     debugger;
-    this.socket.emit('fileUploaded', objToSend);
   }
   
 }
