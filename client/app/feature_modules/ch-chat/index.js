@@ -11,10 +11,12 @@ import { ChFeedComponent } from './components/ch-feed/ch-feed.component';
 import { ChRoomService } from './services/ch-room.service';
 import { ChChatService } from './services/ch-chat.service';
 import { EmojifyModule } from 'angular2-emojify';
+import { ChEmojiPickerComponent } from './components/ch-emoji-picker/ch-emoji-picker.component';
 
 @NgModule({
   imports: [ CommonModule, RouterModule, FormsModule, ChCommonModule, EmojifyModule ],
-  declarations: [ ChChatComponent, ChLobbyComponent, ChRoomComponent, ChMessagesWindowComponent, ChFeedComponent ],
+  declarations: [ ChChatComponent, ChLobbyComponent, ChRoomComponent, ChMessagesWindowComponent, ChFeedComponent,
+    ChEmojiPickerComponent ],
   exports:      [ ChChatComponent, ChLobbyComponent, ChRoomComponent ],
   providers: [ ChRoomService, ChChatService ]
 })

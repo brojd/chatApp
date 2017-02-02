@@ -10,7 +10,6 @@
 				<textarea [ngModel]="messageText | emojify"
 									(ngModelChange)="messageText=$event"
 									(keyup.enter)="sendMessage()">
-					aaa
 				</textarea>
 			</div>
 			<div class="ui form">
@@ -24,6 +23,7 @@
 					<div class="field">
 						<button type="button" (click)="uploadFileToServer()" [disabled]="!isFileUploaded" class="ui button">Send file</button>
 					</div>
+					<ch-emoji-picker></ch-emoji-picker>
 				</div>
 			</div>
 		</div>
