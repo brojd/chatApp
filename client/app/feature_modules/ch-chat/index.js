@@ -10,9 +10,10 @@ import { ChMessagesWindowComponent } from './components/ch-messages-window/ch-me
 import { ChFeedComponent } from './components/ch-feed/ch-feed.component';
 import { ChRoomService } from './services/ch-room.service';
 import { ChChatService } from './services/ch-chat.service';
+import { EmojifyModule } from 'angular2-emojify';
 
 @NgModule({
-  imports: [ CommonModule, RouterModule, FormsModule, ChCommonModule ],
+  imports: [ CommonModule, RouterModule, FormsModule, ChCommonModule, EmojifyModule ],
   declarations: [ ChChatComponent, ChLobbyComponent, ChRoomComponent, ChMessagesWindowComponent, ChFeedComponent ],
   exports:      [ ChChatComponent, ChLobbyComponent, ChRoomComponent ],
   providers: [ ChRoomService, ChChatService ]
