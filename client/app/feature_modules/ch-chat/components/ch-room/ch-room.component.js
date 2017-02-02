@@ -6,6 +6,7 @@ import { ChChatService } from '../../services/ch-chat.service';
 import { ChRoomService } from '../../services/ch-room.service';
 import { UserService } from '../../../../auth/services/user/user.service';
 import './loadingFile.gif';
+import { maxUploadLimitInBytes } from '../../../../../config';
 
 @Component({
   selector: 'ch-room',
@@ -42,6 +43,11 @@ export class ChRoomComponent {
   
   handleUploadFile(event) {
     let file = event.target.files[0];
+    if (file.size > maxUploadLimitInBytes) {
+      alert('Upload file up to 5MB');
+      event.target.value = '';
+      return false;
+    }
     let fileReader = new FileReader();
     fileReader.onloadstart = (e) => {
       this.isFileUploading = true;
