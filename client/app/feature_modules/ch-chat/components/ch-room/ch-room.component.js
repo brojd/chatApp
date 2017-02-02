@@ -49,7 +49,6 @@ export class ChRoomComponent {
     fileReader.onloadend = (e) => {
       this.isFileUploading = false;
       this.isFileUploaded = true;
-      debugger;
       this.fileData = e.target.result;
       this.uploadedFile = file;
     };
