@@ -1,6 +1,7 @@
 'use strict';
 let express = require('express');
 let fs = require('fs');
+let mkdirp = require('mkdirp');
 let bodyParser = require('body-parser');
 let config = require('./config');
 let chatConfig = require('./chat-config');
@@ -31,6 +32,7 @@ io.on('connection', (socket) => {
   // user connected
   const roomId = socket.handshake.query.roomId;
   const nickname = socket.handshake.query.nickname;
+  const socketId = socket.id;
   socket.room = roomId;
   socket.join(roomId);
   Room.findOne({ _id: roomId }, (err, room) => {
@@ -90,17 +92,26 @@ io.on('connection', (socket) => {
     });
   });
   
-  //user uploads file
+  // user uploads file
   socket.on('fileUpload', (fileObj) => {
-    const base64Data = fileObj.fileData.replace(/^data:image\/png;base64,/, "");
-    const pathToSave = `server/tmp/uploads/${fileObj.name}`;
-  
-    fs.writeFile(pathToSave, base64Data, 'base64', function(err) {
+    let time = (new Date()).getTime();
+    const pathToSave = `server/tmp/uploads/${roomId}/${time}-${fileObj.name}`;
+    mkdirp(`server/tmp/uploads/${roomId}`, (err) => {
       if (err) throw err;
-      console.log('now');
-      io.to(roomId).emit('fileUploadFinish', { name: fileObj.name, size: fileObj.size });
+      fs.writeFile(pathToSave, fileObj.fileData, (err) => {
+        if (err) throw err;
+        io.to(roomId).emit('fileUploadFinish', { name: fileObj.name, size: fileObj.size, type: fileObj.type, date: time });
+      });
     });
-  })
+  });
+  
+  // user downloads file
+  socket.on('fileDownload', (fileInfo) => {
+    fs.readFile(`server/tmp/uploads/${roomId}/${fileInfo.date}-${fileInfo.name}`, (err, file) => {
+      if (err) throw err;
+      io.sockets.connected[socketId].emit('fileDownloadFinish', { file: file });
+    })
+  });
   
 });
 

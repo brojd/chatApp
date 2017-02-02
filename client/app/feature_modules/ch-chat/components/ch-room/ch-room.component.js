@@ -49,10 +49,11 @@ export class ChRoomComponent {
     fileReader.onloadend = (e) => {
       this.isFileUploading = false;
       this.isFileUploaded = true;
+      debugger;
       this.fileData = e.target.result;
       this.uploadedFile = file;
     };
-    fileReader.readAsDataURL(file);
+    fileReader.readAsArrayBuffer(file);
   }
   
   uploadFileToServer() {
@@ -72,8 +73,15 @@ export class ChRoomComponent {
     );
   }
   
-  handleDownloadFileClick(name) {
-    this.chatService.downloadFile(name);
+  handleDownloadFileClick(fileObj) {
+    this.chatService.downloadFile(fileObj.name, fileObj.date).subscribe(
+      res => {
+        let blob = new Blob([res.file], { type: fileObj.type });
+        let url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      err => console.log(err)
+    );
   }
   
   ngOnInit() {

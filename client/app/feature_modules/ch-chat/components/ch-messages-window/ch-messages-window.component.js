@@ -27,8 +27,13 @@ export class ChMessagesWindowComponent {
     return dateA.toDateString() === dateB.toDateString();
   }
   
-  downloadFileClicked(name) {
-    this.onDownloadClicked.emit(name);
+  downloadFileClicked(name, date, type) {
+    let fileObj = {
+      name: name,
+      date: date,
+      type: type
+    };
+    this.onDownloadClicked.emit(fileObj);
   }
   
   ngAfterViewChecked() {

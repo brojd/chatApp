@@ -69,6 +69,7 @@ export class ChChatService {
     let objToSend = {
       name: file.name,
       size: file.size,
+      type: file.type,
       fileData: fileData
     };
     this.socket.emit('fileUpload', objToSend);
@@ -80,8 +81,18 @@ export class ChChatService {
     return observable;
   }
   
-  downloadFile(name) {
-    debugger;
+  downloadFile(name, date) {
+    let fileInfo = {
+      name: name,
+      date: date
+    };
+    this.socket.emit('fileDownload', fileInfo);
+    let observable = new Observable(observer => {
+      this.socket.on('fileDownloadFinish', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
   }
   
 }
