@@ -1,5 +1,5 @@
-<section>
-	<ul>
-
-	</ul>
+<section class="ch-emoji-picker">
+	<span *ngFor="let key of iconKeys" (click)="handleIconClick(icons[key])" class="ch-icon">
+		{{icons[key]}}
+	</span>
 </section>
