@@ -1,7 +1,9 @@
 <section class="ch-room-users">
-	<ul>
-		<li *ngFor="let user of connectedUsers">
+	<h3 class="ui centered header">Users online</h3>
+	<div class="ui list">
+		<div *ngFor="let user of connectedUsers" class="item">
+			<i class="circle green icon"></i>
 			{{user}}
-		</li>
-	</ul>
+		</div>
+	</div>
 </section>
