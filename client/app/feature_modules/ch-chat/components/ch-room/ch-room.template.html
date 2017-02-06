@@ -1,11 +1,13 @@
 <section class="ui center aligned grid">
+	<section class="sixteen wide column">
+		<h2><i class="huge icon">{{room.icon}}</i>{{room.name}}</h2>
+	</section>
 	<section class="ui list three wide column">
 		<ch-feed [feed]="feed"></ch-feed>
 		<ch-room-users [connectedUsers]="connectedUsers"></ch-room-users>
 	</section>
 	<section class="ten wide left aligned column">
 		<div class="ui segment">
-			<header class="ui centered header">{{roomName}}</header>
 			<ch-messages-window [messages]="messages" (onDownloadClicked)="handleDownloadFileClick($event)"></ch-messages-window>
 			<div class="ui center aligned form">
 				<textarea [ngModel]="messageText | emojify"

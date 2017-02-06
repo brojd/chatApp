@@ -1,16 +1,31 @@
-<section class="ui center aligned container">
-	<section>
-		Create new room:
-		<input type="text" min=1 [(ngModel)]="room.name" name="name"/>
-		<button type="button" (click)="createRoom()">save</button>
-	</section>
-	<section>
-		<div *ngFor="let room of rooms">
-			<a [routerLink]="['room', room._id]" class="item" >
-				<i class="gamepad huge icon"></i>
-				{{room.name}}
-			</a>
-			<i class="remove circle icon" (click)="deleteRoom(room._id)"></i>
-		</div>
-	</section>
-</section>
+
+<div class="ui center aligned grid">
+	<div class="twelve wide column">
+		<section class="ui two column grid">
+			<section class="ui form column">
+					<div class="field">
+						Create new room:
+						<input type="text" min=1 [(ngModel)]="room.name" name="name"/>
+					</div>
+					<div class="field">
+						<section class="ch-iconPickerSection">
+							<ch-emoji-picker (onIconClick)="handleIconClick($event)" [right]="null" [bottom]="null"></ch-emoji-picker>
+							<span class="ch-iconPreview"><i class="massive icon">{{room.icon}}</i></span>
+						</section>
+					</div>
+					<div class="center aligned">
+						<button type="button" (click)="createRoom()" class="ui green small button">save</button>
+					</div>
+			</section>
+			<section class="left aligned column">
+				<div *ngFor="let room of rooms">
+					<a [routerLink]="['room', room._id]" class="item" >
+						<i class="huge icon">{{room.icon}}</i>
+						{{room.name}}
+					</a>
+					<i class="remove circle icon" (click)="deleteRoom(room._id)"></i>
+				</div>
+			</section>
+		</section>
+	</div>
+</div>

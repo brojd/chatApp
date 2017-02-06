@@ -1,5 +1,5 @@
-<section class="ch-emoji-picker">
+<section class="ch-emoji-picker" [ngStyle]="{'bottom': bottom, 'right': right}">
 	<span *ngFor="let key of iconKeys" (click)="handleIconClick(icons[key])" class="ch-icon">
-		{{icons[key]}}
+		<i class="large icon">{{icons[key]}}</i>
 	</span>
 </section>

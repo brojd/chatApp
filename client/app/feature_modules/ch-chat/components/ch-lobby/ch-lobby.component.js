@@ -20,8 +20,9 @@ export class ChLobbyComponent {
     this.roomService.createRoom(this.room).subscribe(
       res => {
         if (res.success) {
-          this.rooms.unshift(res.room);
+          this.rooms.push(res.room);
           this.room.name = '';
+          this.room.icon = '';
         }
       },
       err => console.log(err)
@@ -37,6 +38,10 @@ export class ChLobbyComponent {
       },
       err => console.log(err)
     );
+  }
+  
+  handleIconClick(icon) {
+    this.room.icon = icon;
   }
   
   ngOnInit() {

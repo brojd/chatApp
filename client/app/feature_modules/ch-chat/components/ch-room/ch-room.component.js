@@ -25,7 +25,7 @@ export class ChRoomComponent {
     this.userNickname = userService.getCurrentUserDetails().nickname;
     this.feed = [];
     this.connectedUsers = [];
-    this.roomName = '';
+    this.room = { name: '', icon: '' };
     this.isFileUploading = false;
     this.isFileUploaded = false;
   }
@@ -100,7 +100,7 @@ export class ChRoomComponent {
       .subscribe(params => {
         this.roomId = params.id;
         this.connectToChat = this.chatService.connectToChat(params.id).subscribe(room => {
-          this.roomName = room.name;
+          this.room = room;
           this.feed = room.feed;
           this.messages = room.messages;
         });

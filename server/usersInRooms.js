@@ -10,6 +10,10 @@ const getAllRooms = () => usersInRooms;
 
 const getRoom = (roomId) => usersInRooms.find((room) => room.id == roomId);
 
+const addRoom = (room) => usersInRooms.push(room);
+
+const deleteRoom = (roomId) => usersInRooms = usersInRooms.filter((room) => room.id != roomId);
+
 const addUserToRoom = (roomId, nickname) => {
   usersInRooms.map((room) => {
     if (room.id == roomId) {
@@ -31,4 +35,4 @@ const deleteUserFromRoom = (roomId, nickname) => {
   });
 };
 
-module.exports = { generateRooms, getAllRooms, getRoom, addUserToRoom, deleteUserFromRoom };
+module.exports = { generateRooms, addRoom, deleteRoom, getAllRooms, getRoom, addUserToRoom, deleteUserFromRoom };

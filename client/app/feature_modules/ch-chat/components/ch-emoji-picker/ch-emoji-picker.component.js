@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import template from './ch-emoji-picker.template.html';
 import styles from './ch-emoji-picker.stylesheet.scss';
 import emoji from './emojifile';
@@ -11,6 +11,8 @@ import emoji from './emojifile';
 export class ChEmojiPickerComponent {
   
   @Output() onIconClick = new EventEmitter();
+  @Input() bottom = '40px';
+  @Input() right = '5px';
   
   constructor() {
     this.icons = emoji;
