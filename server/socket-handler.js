@@ -3,6 +3,7 @@ let fs = require('fs');
 let mkdirp = require('mkdirp');
 let Room = require('./models/room.model');
 let chatConfig = require('./chat-config');
+let loggedUsers = require('./usersInRooms');
 
 module.exports = (io, socket) => {
   
@@ -12,6 +13,7 @@ module.exports = (io, socket) => {
   const socketId = socket.id;
   socket.room = roomId;
   socket.join(roomId);
+  loggedUsers.addUserToRoom(roomId, nickname);
   Room.findOne({_id: roomId}, (err, room) => {
     if (err) throw err;
     let feed = room.feed.slice();
@@ -24,16 +26,16 @@ module.exports = (io, socket) => {
       feed.shift();
     }
     room.feed = feed;
-    console.log('now');
     room.save((err) => {
       if (err) throw err;
-      console.log('after');
-      socket.to(roomId).emit('user-connected', {feed: feed});
+      const usersInRoom = loggedUsers.getRoom(roomId);
+      io.to(roomId).emit('user-connected', { feed: feed, usersInRoom: usersInRoom });
     })
   });
   
   // user disconnected
   socket.on('disconnect', () => {
+    loggedUsers.deleteUserFromRoom(roomId, nickname);
     Room.findOne({_id: roomId}, (err, room) => {
       if (err) throw err;
       let feed = room.feed.slice();
@@ -48,7 +50,8 @@ module.exports = (io, socket) => {
       room.feed = feed;
       room.save((err) => {
         if (err) throw err;
-        io.to(roomId).emit('user-disconnected', {feed: feed});
+        const usersInRoom = loggedUsers.getRoom(roomId);
+        io.to(roomId).emit('user-disconnected', { feed: feed, usersInRoom: usersInRoom });
         socket.leave(roomId);
       });
     });

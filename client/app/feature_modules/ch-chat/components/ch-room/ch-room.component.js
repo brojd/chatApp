@@ -24,6 +24,7 @@ export class ChRoomComponent {
     this.userService = userService;
     this.userNickname = userService.getCurrentUserDetails().nickname;
     this.feed = [];
+    this.connectedUsers = [];
     this.roomName = '';
     this.isFileUploading = false;
     this.isFileUploaded = false;
@@ -108,10 +109,16 @@ export class ChRoomComponent {
       message => this.messages.push(message)
     );
     this.listenUserConnected = this.chatService.notifyUserConnected().subscribe(
-      (data) => this.feed = data.feed.slice()
+      (data) => {
+        this.connectedUsers = data.usersInRoom.users.slice();
+        this.feed = data.feed.slice();
+      }
     );
     this.listenUserDisconnected = this.chatService.notifyUserDisconnected().subscribe(
-      (data) => this.feed = data.feed.slice()
+      (data) => {
+        this.connectedUsers = data.usersInRoom.users.slice();
+        this.feed = data.feed.slice();
+      }
     );
   }
   

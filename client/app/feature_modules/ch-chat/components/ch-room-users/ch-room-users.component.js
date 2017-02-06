@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import template from './ch-room-users.template.html';
 import styles from './ch-room-users.stylesheet.scss';
-import { UserService } from '../../../../auth/services/user/user.service';
 
 @Component({
   selector: 'ch-room-users',
@@ -10,8 +9,8 @@ import { UserService } from '../../../../auth/services/user/user.service';
 })
 export class ChRoomUsersComponent {
   
-  constructor(userService: UserService) {
-    this.userService = userService;
-  }
+  @Input() connectedUsers = [];
+  
+  constructor() {}
   
 }
