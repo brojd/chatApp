@@ -23,7 +23,23 @@
 					<div class="field">
 						<button type="button" (click)="uploadFileToServer()" [disabled]="!isFileUploaded" class="ui button">Send file</button>
 					</div>
-					<ch-emoji-picker></ch-emoji-picker>
+					<section class="ch-iconPickerSection">
+						<ch-emoji-picker (onIconClick)="handleIconClick($event)"
+														 [ngClass]="{'visible': iconPickerVisible, 'hidden': !iconPickerVisible}">
+						</ch-emoji-picker>
+						<button type="button"
+										(click)="iconPickerVisible=true"
+										*ngIf="!iconPickerVisible"
+										class="ui orange mini button">
+							Show icon picker
+						</button>
+						<button type="button"
+										(click)="iconPickerVisible=false"
+										*ngIf="iconPickerVisible"
+										class="ui orange mini button">
+							Hide icon picker
+						</button>
+					</section>
 				</div>
 			</div>
 		</div>

@@ -89,6 +89,10 @@ export class ChRoomComponent {
     );
   }
   
+  handleIconClick(icon) {
+    this.messageText = this.messageText.concat(icon);
+  }
+  
   ngOnInit() {
     this.routeSubscription = this.route
       .params
