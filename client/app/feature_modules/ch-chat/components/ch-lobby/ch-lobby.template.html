@@ -2,10 +2,10 @@
 <div class="ui center aligned grid">
 	<div class="twelve wide column">
 		<section class="ui two column grid">
-			<section class="ui form column">
+			<form class="ui form column" #roomForm="ngForm">
 					<div class="field">
 						Create new room:
-						<input type="text" min=1 [(ngModel)]="room.name" name="name"/>
+						<input type="text" minlength=1 [(ngModel)]="room.name" name="name" required/>
 					</div>
 					<div class="field">
 						<section class="ch-iconPickerSection">
@@ -14,9 +14,14 @@
 						</section>
 					</div>
 					<div class="center aligned">
-						<button type="button" (click)="createRoom()" class="ui green small button">save</button>
+						<button type="button"
+										(click)="createRoom()"
+										class="ui green small button"
+										[disabled]="!roomForm.form.valid">
+							save
+						</button>
 					</div>
-			</section>
+			</form>
 			<section class="left aligned column">
 				<div *ngFor="let room of rooms">
 					<a [routerLink]="['room', room._id]" class="item" >
