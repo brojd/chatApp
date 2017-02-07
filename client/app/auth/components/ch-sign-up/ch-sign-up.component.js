@@ -52,7 +52,7 @@ export class ChSignUpComponent {
   }
 
   onSubmit(credentials) {
-    credentials.Avatar = this.avatar;
+    credentials.AvatarURL = this.avatar;
     this._userService.signup(credentials).subscribe(
       result => {
         if (result.success === true) {

@@ -23,7 +23,7 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
-  User.find({ 'nickname': req.body.Nickname, $or: {'email': req.body.Email} }, (err, users) => {
+  User.find({ $or: [{'email': req.body.Email}, {'nickname': req.body.Nickname}] }, (err, users) => {
     if (err) throw err;
     if (users.length) {
       res.send({ success: false, message: 'Nickname or email has been already chosen' });
@@ -31,7 +31,8 @@ router.post('/signup', (req, res) => {
       let newUser = new User({
         nickname: req.body.Nickname,
         email: req.body.Email,
-        password: req.body.Password
+        password: req.body.Password,
+        avatarUrl: req.body.AvatarURL
       });
       newUser.save((err, room) => {
         if (err) throw err;
