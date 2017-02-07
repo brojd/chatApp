@@ -68,9 +68,9 @@ export class ChRoomComponent {
     this.chatService.uploadFileToServer(this.uploadedFile, this.fileData).subscribe(
       file => {
         let message = {
-          nickname: this.userNickname,
+          nickname: this.user.nickname,
           date: new Date(),
-          text: `${this.userNickname} sent file`,
+          text: `${this.user.nickname} sent file`,
           hasFile: true,
           file: file
         };

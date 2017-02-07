@@ -26,14 +26,14 @@ module.exports = (io, socket) => {
     if (feed.length > chatConfig.feedLimitPerRoom) {
       feed.shift();
     }
+    const usersInRoom = loggedUsers.getRoom(roomId) ? loggedUsers.getRoom(roomId).users : [];
+    User.find({ _id: { $in: usersInRoom } }, (err, users) => {
+      if (err) throw err;
+      io.to(roomId).emit('user-connected', { feed: feed, usersInRoom: users });
+    });
     room.feed = feed;
     room.save((err) => {
       if (err) throw err;
-      const usersInRoom = loggedUsers.getRoom(roomId).users;
-      User.find({ _id: { $in: usersInRoom } }, (err, users) => {
-        if (err) throw err;
-        io.to(roomId).emit('user-connected', { feed: feed, usersInRoom: users });
-      });
     })
   });
   
@@ -51,24 +51,22 @@ module.exports = (io, socket) => {
       if (feed.length > chatConfig.feedLimitPerRoom) {
         feed.shift();
       }
+      const usersInRoom = loggedUsers.getRoom(roomId).users;
+      User.find({ _id: { $in: usersInRoom } }, (err, users) => {
+        if (err) throw err;
+        io.to(roomId).emit('user-disconnected', { feed: feed, usersInRoom: users });
+        socket.leave(roomId);
+      });
       room.feed = feed;
       room.save((err) => {
         if (err) throw err;
-        const usersInRoom = loggedUsers.getRoom(roomId).users;
-        console.log(usersInRoom);
-        User.find({ _id: { $in: usersInRoom } }, (err, users) => {
-          if (err) throw err;
-          io.to(roomId).emit('user-disconnected', { feed: feed, usersInRoom: users });
-          socket.leave(roomId);
-        });
-        
       });
     });
   });
   
   // user sends text message
   socket.on('add-message', (message) => {
-    Room.findOne({_id: roomId}, (err, room) => {
+    Room.findOne({ _id: roomId}, (err, room) => {
       if (err) throw err;
       let messages = room.messages.slice();
       messages.push(message);

@@ -13,7 +13,7 @@ let roomSchema = new Schema({
     file: Object
   }],
   feed: [{
-    nickname: String,
+    userId: String,
     date: Date,
     info: String
   }]
