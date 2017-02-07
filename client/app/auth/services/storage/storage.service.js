@@ -13,13 +13,15 @@ export class StorageService {
     localStorage.removeItem(AUTH_KEY);
   }
   
-  setUserDetails(nickname, avatarUrl) {
+  setUserDetails(userId, nickname, avatarUrl) {
+    localStorage.setItem('userId', userId);
     localStorage.setItem('nickname', nickname);
     localStorage.setItem('avatarUrl', avatarUrl);
   }
   
   getUserDetails() {
     let result = {
+      userId: localStorage.getItem('userId'),
       nickname: localStorage.getItem('nickname'),
       avatarUrl: localStorage.getItem('avatarUrl')
     };
@@ -27,6 +29,7 @@ export class StorageService {
   }
   
   removeUserDetails() {
+    localStorage.removeItem('userId');
     localStorage.removeItem('nickname');
     localStorage.removeItem('avatarUrl');
   }

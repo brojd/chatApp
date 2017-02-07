@@ -25,7 +25,7 @@ export class UserService {
       .map(res => {
         if (res.success) {
           this._storage.setAuthToken(res.token);
-          this._storage.setUserDetails(res.nickname, res.avatarUrl);
+          this._storage.setUserDetails(res.userId, res.nickname, res.avatarUrl);
           this._loggedIn.next(true);
         }
         return res;

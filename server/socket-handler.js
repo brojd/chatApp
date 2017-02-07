@@ -2,6 +2,7 @@ let mongoose = require('mongoose');
 let fs = require('fs');
 let mkdirp = require('mkdirp');
 let Room = require('./models/room.model');
+let User = require('./models/user.model');
 let chatConfig = require('./chat-config');
 let loggedUsers = require('./usersInRooms');
 
@@ -9,16 +10,16 @@ module.exports = (io, socket) => {
   
   // user connected
   const roomId = socket.handshake.query.roomId;
-  const nickname = socket.handshake.query.nickname;
+  const userId = socket.handshake.query.userId;
   const socketId = socket.id;
   socket.room = roomId;
   socket.join(roomId);
-  loggedUsers.addUserToRoom(roomId, nickname);
+  loggedUsers.addUserToRoom(roomId, userId);
   Room.findOne({_id: roomId}, (err, room) => {
     if (err) throw err;
     let feed = room.feed.slice();
     feed.push({
-      nickname: nickname,
+      userId: userId,
       date: new Date(),
       info: ' has joined the chat'
     });
@@ -28,19 +29,22 @@ module.exports = (io, socket) => {
     room.feed = feed;
     room.save((err) => {
       if (err) throw err;
-      const usersInRoom = loggedUsers.getRoom(roomId);
-      io.to(roomId).emit('user-connected', { feed: feed, usersInRoom: usersInRoom });
+      const usersInRoom = loggedUsers.getRoom(roomId).users;
+      User.find({ _id: { $in: usersInRoom } }, (err, users) => {
+        if (err) throw err;
+        io.to(roomId).emit('user-connected', { feed: feed, usersInRoom: users });
+      });
     })
   });
   
   // user disconnected
   socket.on('disconnect', () => {
-    loggedUsers.deleteUserFromRoom(roomId, nickname);
+    loggedUsers.deleteUserFromRoom(roomId, userId);
     Room.findOne({_id: roomId}, (err, room) => {
       if (err) throw err;
       let feed = room.feed.slice();
       feed.push({
-        nickname: nickname,
+        userId: userId,
         date: new Date(),
         info: ' has left the chat'
       });
@@ -50,9 +54,14 @@ module.exports = (io, socket) => {
       room.feed = feed;
       room.save((err) => {
         if (err) throw err;
-        const usersInRoom = loggedUsers.getRoom(roomId);
-        io.to(roomId).emit('user-disconnected', { feed: feed, usersInRoom: usersInRoom });
-        socket.leave(roomId);
+        const usersInRoom = loggedUsers.getRoom(roomId).users;
+        console.log(usersInRoom);
+        User.find({ _id: { $in: usersInRoom } }, (err, users) => {
+          if (err) throw err;
+          io.to(roomId).emit('user-disconnected', { feed: feed, usersInRoom: users });
+          socket.leave(roomId);
+        });
+        
       });
     });
   });

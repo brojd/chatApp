@@ -12,6 +12,7 @@ router.post('/login', (req, res) => {
       result.success = true;
       result.nickname = user.nickname;
       result.avatarUrl = user.avatarUrl;
+      result.userId = user._id;
       result.token = jwt.sign({ login: req.body.Login }, config.jwt_secret);
     } else if (user) {
       result.message = 'Password is not correct';

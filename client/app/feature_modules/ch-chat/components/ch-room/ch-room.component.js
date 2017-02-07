@@ -103,7 +103,6 @@ export class ChRoomComponent {
         this.connectToChat = this.chatService.connectToChat(params.id).subscribe(room => {
           this.room = room;
           this.feed = room.feed;
-          debugger;
           this.messages = room.messages;
         });
       });
@@ -112,13 +111,13 @@ export class ChRoomComponent {
     );
     this.listenUserConnected = this.chatService.notifyUserConnected().subscribe(
       (data) => {
-        this.connectedUsers = data.usersInRoom.users.slice();
+        this.connectedUsers = data.usersInRoom.slice();
         this.feed = data.feed.slice();
       }
     );
     this.listenUserDisconnected = this.chatService.notifyUserDisconnected().subscribe(
       (data) => {
-        this.connectedUsers = data.usersInRoom.users.slice();
+        this.connectedUsers = data.usersInRoom.slice();
         this.feed = data.feed.slice();
       }
     );

@@ -6,7 +6,7 @@
 			{{message.date | date:'fullDate'}}
 		</div>
 		{{message.date | date:'mediumTime'}}:
-		<img src="{{message.avatarUrl}}" alt="user_avatar" class="ui mini inline image" *ngIf="message.avatarUrl"/>
+		<img src="{{message.avatarUrl}}" alt="user_avatar" class="ui mini inline circular image" *ngIf="message.avatarUrl"/>
 		{{message.nickname}}
 		{{message.text}}
 		<span class="ui label" *ngIf="message.hasFile">

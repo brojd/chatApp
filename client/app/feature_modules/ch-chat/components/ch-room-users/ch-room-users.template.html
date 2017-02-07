@@ -2,8 +2,8 @@
 	<h3 class="ui centered header">Users online</h3>
 	<div class="ui list">
 		<div *ngFor="let user of connectedUsers" class="item">
-			<i class="circle green icon"></i>
-			{{user}}
+			<img src="{{user.avatarUrl}}" alt="user_avatar" class="ui mini inline circular image" />
+			<span>{{user.nickname}} <i class="circle green icon"></i></span>
 		</div>
 	</div>
 </section>

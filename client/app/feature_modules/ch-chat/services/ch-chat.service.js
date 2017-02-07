@@ -20,9 +20,9 @@ export class ChChatService {
   }
   
   connectToChat(roomId) {
-    let userNickname = this.userService.getCurrentUserDetails().nickname;
+    let userId = this.userService.getCurrentUserDetails().userId;
     let observable = new Observable(observer => {
-      this.socket = io(API_URL, {query: `roomId=${roomId}&nickname=${userNickname}`});
+      this.socket = io(API_URL, {query: `roomId=${roomId}&userId=${userId}`});
       this.socket.on('connect', () => {
         this.roomService.getRoom(roomId).subscribe(
           room => {
