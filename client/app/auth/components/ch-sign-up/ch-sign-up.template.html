@@ -40,6 +40,12 @@
 					 class="ui negative message">
 				Password is required
 			</div>
+			<div class="field">
+				<label for="signup-avatar">Upload your avatar</label>
+				<input type="file" (change)="handleUploadFile($event)" id="signup-avatar"/>
+				<img src='./images/loadingFile.gif' alt='spinner' *ngIf="isFileUploading" />
+			</div>
+			<img *ngIf="isFileUploaded" src="{{avatar}}" alt="avatar" class="ui tiny circular centered image"/>
 			<div *ngIf="error" class="ui negative message">{{error}}</div>
 			<button type="submit" [disabled]="!signupForm.valid" class="ui button pt-signupButton">Sign up</button>
 		</form>
