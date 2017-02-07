@@ -29,7 +29,7 @@ export class ChSignUpComponent {
   handleUploadFile(event) {
     let file = event.target.files[0];
     if (file.size > maxUploadAvatarLimitInBytes) {
-      alert('Upload file up to 1MB');
+      alert('Upload file up to 100kB');
       event.target.value = '';
       return false;
     } else if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
