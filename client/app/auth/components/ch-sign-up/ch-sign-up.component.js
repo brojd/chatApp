@@ -37,7 +37,6 @@ export class ChSignUpComponent {
       event.target.value = '';
       return false;
     }
-    
     let fileReader = new FileReader();
     fileReader.onloadstart = (e) => {
       this.isFileUploading = true;

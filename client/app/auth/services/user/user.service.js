@@ -25,8 +25,7 @@ export class UserService {
       .map(res => {
         if (res.success) {
           this._storage.setAuthToken(res.token);
-          this._storage.setUserDetails(res.nickname);
-          debugger;
+          this._storage.setUserDetails(res.nickname, res.avatarUrl);
           this._loggedIn.next(true);
         }
         return res;
@@ -48,7 +47,6 @@ export class UserService {
   }
   
   signup(credentials) {
-    debugger;
     return this._http
       .post(`${API_URL}/signup`, credentials)
       .map(res => res.json())
