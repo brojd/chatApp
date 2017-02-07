@@ -30,14 +30,17 @@ export class ChLobbyComponent {
   }
   
   deleteRoom(id) {
-    this.roomService.deleteRoom(id).subscribe(
-      res => {
-        if (res.success) {
-          this.rooms = this.rooms.filter(room => room._id !== id);
-        }
-      },
-      err => console.log(err)
-    );
+    let toDelete = confirm('Do you want to delete room?');
+    if (toDelete) {
+      this.roomService.deleteRoom(id).subscribe(
+        res => {
+          if (res.success) {
+            this.rooms = this.rooms.filter(room => room._id !== id);
+          }
+        },
+        err => console.log(err)
+      );
+    }
   }
   
   handleIconClick(icon) {
