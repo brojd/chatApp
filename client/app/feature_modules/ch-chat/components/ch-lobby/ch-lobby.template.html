@@ -1,5 +1,5 @@
-<div class="ui center aligned grid">
-	<div class="twelve wide column">
+<div class="ui center aligned grid" [ngSwitch]="componentReady">
+	<div class="twelve wide column" *ngSwitchCase="true">
 		<section class="ui two column grid">
 			<form class="ui form column" #roomForm="ngForm">
 					<div class="field">
@@ -31,5 +31,8 @@
 				</div>
 			</section>
 		</section>
+	</div>
+	<div *ngSwitchCase="false">
+		<ch-spinner></ch-spinner>
 	</div>
 </div>

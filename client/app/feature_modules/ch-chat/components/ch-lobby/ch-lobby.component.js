@@ -14,6 +14,7 @@ export class ChLobbyComponent {
     this.roomService = roomService;
     this.room = {};
     this.rooms = [];
+    this.componentReady = false;
   }
   
   createRoom() {
@@ -49,7 +50,10 @@ export class ChLobbyComponent {
   
   ngOnInit() {
     this.roomService.getRooms().subscribe(
-      rooms => this.rooms = rooms,
+      rooms => {
+        this.rooms = rooms;
+        this.componentReady = true;
+      },
       err => console.log(err)
     );
   }
