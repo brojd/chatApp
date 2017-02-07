@@ -22,7 +22,7 @@ export class ChRoomComponent {
     this.messages = [];
     this.messageText = '';
     this.userService = userService;
-    this.userNickname = userService.getCurrentUserDetails().nickname;
+    this.user = userService.getCurrentUserDetails();
     this.feed = [];
     this.connectedUsers = [];
     this.room = { name: '', icon: '' };
@@ -32,7 +32,8 @@ export class ChRoomComponent {
   
   sendMessage() {
     let message = {
-      nickname: this.userNickname,
+      nickname: this.user.nickname,
+      avatarUrl: this.user.avatarUrl,
       date: new Date(),
       text: this.messageText,
       hasFile: false,
@@ -102,6 +103,7 @@ export class ChRoomComponent {
         this.connectToChat = this.chatService.connectToChat(params.id).subscribe(room => {
           this.room = room;
           this.feed = room.feed;
+          debugger;
           this.messages = room.messages;
         });
       });

@@ -28,6 +28,7 @@ export class StorageService {
   
   removeUserDetails() {
     localStorage.removeItem('nickname');
+    localStorage.removeItem('avatarUrl');
   }
 
 }

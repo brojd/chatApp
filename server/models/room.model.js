@@ -6,6 +6,7 @@ let roomSchema = new Schema({
   icon: String,
   messages: [{
     nickname: String,
+    avatarUrl: String,
     date: Date,
     text: String,
     hasFile: Boolean,

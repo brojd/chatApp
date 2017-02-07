@@ -5,7 +5,10 @@
 				 class="ui small header">
 			{{message.date | date:'fullDate'}}
 		</div>
-		{{message.date | date:'mediumTime'}}: {{message.nickname}} {{message.text}}
+		{{message.date | date:'mediumTime'}}:
+		<img src="{{message.avatarUrl}}" alt="user_avatar" class="ui mini inline image" *ngIf="message.avatarUrl"/>
+		{{message.nickname}}
+		{{message.text}}
 		<span class="ui label" *ngIf="message.hasFile">
 			{{message.file.name}} (size: {{message.file.size/1000}} kB)
 			<button type="button"
