@@ -1,38 +1,45 @@
-<div class="ui center aligned grid" [ngSwitch]="componentReady">
-	<div class="twelve wide column" *ngSwitchCase="true">
-		<section class="ui two column grid">
-			<form class="ui form column" #roomForm="ngForm">
-					<div class="field">
-						Create new room:
-						<input type="text" minlength=1 [(ngModel)]="room.name" name="name" required/>
+<section class="ch-lobby">
+	<div class="ui center aligned grid" [ngSwitch]="componentReady">
+		<div class="twelve wide column" *ngSwitchCase="true">
+			<section class="ui two column grid">
+				<form class="ui form column" #roomForm="ngForm">
+						<div class="field">
+							<input type="text"
+										 minlength=1
+										 [(ngModel)]="room.name"
+										 name="name"
+										 placeholder="Create new room"
+										 required
+										 class="ch-createRoomInput" />
+						</div>
+						<div class="field">
+							<section class="ch-iconPickerSection">
+								<ch-emoji-picker (onIconClick)="handleIconClick($event)" [right]="null" [bottom]="null"></ch-emoji-picker>
+								<span class="ch-iconPreview"><i class="massive icon">{{room.icon}}</i></span>
+							</section>
+						</div>
+						<div class="center aligned">
+							<button type="button"
+											(click)="createRoom()"
+											class="ui green small button"
+											[disabled]="!roomForm.form.valid">
+								save
+							</button>
+						</div>
+				</form>
+				<section class="left aligned column">
+					<div *ngFor="let room of rooms">
+						<a [routerLink]="['room', room._id]" class="item" >
+							<i class="huge icon">{{room.icon}}</i>
+							{{room.name}}
+						</a>
+						<i class="remove circle icon" (click)="deleteRoom(room._id)"></i>
 					</div>
-					<div class="field">
-						<section class="ch-iconPickerSection">
-							<ch-emoji-picker (onIconClick)="handleIconClick($event)" [right]="null" [bottom]="null"></ch-emoji-picker>
-							<span class="ch-iconPreview"><i class="massive icon">{{room.icon}}</i></span>
-						</section>
-					</div>
-					<div class="center aligned">
-						<button type="button"
-										(click)="createRoom()"
-										class="ui green small button"
-										[disabled]="!roomForm.form.valid">
-							save
-						</button>
-					</div>
-			</form>
-			<section class="left aligned column">
-				<div *ngFor="let room of rooms">
-					<a [routerLink]="['room', room._id]" class="item" >
-						<i class="huge icon">{{room.icon}}</i>
-						{{room.name}}
-					</a>
-					<i class="remove circle icon" (click)="deleteRoom(room._id)"></i>
-				</div>
+				</section>
 			</section>
-		</section>
+		</div>
+		<div *ngSwitchCase="false">
+			<ch-spinner></ch-spinner>
+		</div>
 	</div>
-	<div *ngSwitchCase="false">
-		<ch-spinner></ch-spinner>
-	</div>
-</div>
+</section>
