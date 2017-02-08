@@ -11,6 +11,7 @@ module.exports = (io, socket) => {
   // user connected
   const roomId = socket.handshake.query.roomId;
   const userId = socket.handshake.query.userId;
+  const nickname = socket.handshake.query.nickname;
   const socketId = socket.id;
   socket.room = roomId;
   socket.join(roomId);
@@ -19,7 +20,7 @@ module.exports = (io, socket) => {
     if (err) throw err;
     let feed = room.feed.slice();
     feed.push({
-      userId: userId,
+      nickname: nickname,
       date: new Date(),
       info: ' has joined the chat'
     });
@@ -44,7 +45,7 @@ module.exports = (io, socket) => {
       if (err) throw err;
       let feed = room.feed.slice();
       feed.push({
-        userId: userId,
+        nickname: nickname,
         date: new Date(),
         info: ' has left the chat'
       });

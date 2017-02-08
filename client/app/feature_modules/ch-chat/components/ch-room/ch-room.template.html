@@ -6,8 +6,11 @@
 			</h2>
 		</section>
 		<section class="ui list three wide left aligned column">
-			<ch-feed [feed]="feed"></ch-feed>
-			<ch-room-users [connectedUsers]="connectedUsers"></ch-room-users>
+			<div class="ch-feedWrapper">
+				<h4 class="ch-feedHeader"><i class="feed icon"></i><span>News</span></h4>
+				<ch-feed [feed]="feed"></ch-feed>
+				<ch-room-users [connectedUsers]="connectedUsers"></ch-room-users>
+			</div>
 		</section>
 		<section class="ten wide left aligned column">
 			<div class="ui segment">
