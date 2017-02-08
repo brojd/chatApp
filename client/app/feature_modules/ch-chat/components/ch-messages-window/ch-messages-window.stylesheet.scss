@@ -1,4 +1,21 @@
 .ch-messages-window {
   height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.ch-continuedMessage {
+  margin: -9px 0 0 50px !important;
+}
+
+.ui.feed>.event>.label+.content {
+  margin-bottom: 0;
+}
+
+.ui.feed>.event>.content .summary {
+  border-bottom: 1px solid #cecece;
+}
+
+.ui.feed>.event>.content .summary .date {
+  float: right;
+  margin-right: 15px;
 }

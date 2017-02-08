@@ -13,42 +13,44 @@
 			</div>
 		</section>
 		<section class="ten wide left aligned column">
-			<div class="ui segment">
+			<div class="ch-chatWindow">
 				<ch-messages-window [messages]="messages" (onDownloadClicked)="handleDownloadFileClick($event)"></ch-messages-window>
-				<div class="ui center aligned form">
-					<textarea [ngModel]="messageText | emojify"
-										(ngModelChange)="messageText=$event"
-										(keyup.enter)="sendMessage()">
-					</textarea>
-				</div>
-				<div class="ui form">
-					<div class="inline fields">
-						<div class="field">
-							<input type="file" (change)="handleUploadFile($event)"/>
-							<img src='./images/loadingFile.gif' alt='spinner' *ngIf="isFileUploading" />
-							<i class="checkmark green icon" *ngIf="isFileUploaded"></i>
+				<div class="ch-inputSection">
+					<div class="ui center aligned form">
+						<textarea [ngModel]="messageText | emojify"
+											(ngModelChange)="messageText=$event"
+											(keyup.enter)="sendMessage()">
+						</textarea>
+					</div>
+					<div class="ui form">
+						<div class="inline fields">
+							<div class="field">
+								<input type="file" (change)="handleUploadFile($event)"/>
+								<img src='./images/loadingFile.gif' alt='spinner' *ngIf="isFileUploading" />
+								<i class="checkmark green icon" *ngIf="isFileUploaded"></i>
+							</div>
+							<p>{{ emo | emojify }}</p>
+							<div class="field">
+								<button type="button" (click)="uploadFileToServer()" [disabled]="!isFileUploaded" class="ui button">Send file</button>
+							</div>
+							<section class="ch-iconPickerSection">
+								<ch-emoji-picker (onIconClick)="handleIconClick($event)"
+																 [ngClass]="{'visible': iconPickerVisible, 'hidden': !iconPickerVisible}">
+								</ch-emoji-picker>
+								<button type="button"
+												(click)="iconPickerVisible=true"
+												*ngIf="!iconPickerVisible"
+												class="ui orange mini button">
+									Show icon picker
+								</button>
+								<button type="button"
+												(click)="iconPickerVisible=false"
+												*ngIf="iconPickerVisible"
+												class="ui orange mini button">
+									Hide icon picker
+								</button>
+							</section>
 						</div>
-						<p>{{ emo | emojify }}</p>
-						<div class="field">
-							<button type="button" (click)="uploadFileToServer()" [disabled]="!isFileUploaded" class="ui button">Send file</button>
-						</div>
-						<section class="ch-iconPickerSection">
-							<ch-emoji-picker (onIconClick)="handleIconClick($event)"
-															 [ngClass]="{'visible': iconPickerVisible, 'hidden': !iconPickerVisible}">
-							</ch-emoji-picker>
-							<button type="button"
-											(click)="iconPickerVisible=true"
-											*ngIf="!iconPickerVisible"
-											class="ui orange mini button">
-								Show icon picker
-							</button>
-							<button type="button"
-											(click)="iconPickerVisible=false"
-											*ngIf="iconPickerVisible"
-											class="ui orange mini button">
-								Hide icon picker
-							</button>
-						</section>
 					</div>
 				</div>
 			</div>

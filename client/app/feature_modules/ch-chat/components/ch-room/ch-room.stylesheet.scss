@@ -28,3 +28,18 @@
 .ch-feedWrapper {
   margin-top: -15px;
 }
+
+.ch-chatWindow {
+  box-shadow: 0px 0px 0px 1px #8e8e8e, -3px 3px #7d7d7d, -10px 10px 26px 0 #1c202b;
+  border-radius: 1px;
+  background: white;
+  padding: 25px;
+}
+
+.ch-inputSection {
+  margin-top: 30px;
+  background: rgb(239, 239, 239);
+  padding: 15px;
+  box-shadow: 0px 0px 0px 1px rgba(142, 142, 142, 0.32), -3px 3px rgba(125, 125, 125, 0.11), -4px 4px 28px 0 rgba(28, 32, 43, 0.17);
+  border-radius: 1px;
+}
