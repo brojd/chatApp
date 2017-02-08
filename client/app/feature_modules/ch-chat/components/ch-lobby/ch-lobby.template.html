@@ -4,18 +4,28 @@
 			<section class="ui two column grid">
 				<form class="ui form column" #roomForm="ngForm">
 						<div class="field">
+							<h3 class="ch-createRoomHeader"><i class="plus square outline large icon"></i>Create room</h3>
 							<input type="text"
 										 minlength=1
 										 [(ngModel)]="room.name"
 										 name="name"
-										 placeholder="Create new room"
+										 placeholder="Enter name of room"
 										 required
 										 class="ch-createRoomInput" />
 						</div>
 						<div class="field">
 							<section class="ch-iconPickerSection">
-								<ch-emoji-picker (onIconClick)="handleIconClick($event)" [right]="null" [bottom]="null"></ch-emoji-picker>
-								<span class="ch-iconPreview"><i class="massive icon">{{room.icon}}</i></span>
+								<div class="ui grid">
+									<div class="seven wide column">
+										<h4 class="ch-chooseIconHeader"><i class="hand pointer icon"></i>Choose icon</h4>
+										<ch-emoji-picker (onIconClick)="handleIconClick($event)" [right]="null" [bottom]="null">
+										</ch-emoji-picker>
+									</div>
+									<div class="seven wide right floated column">
+										<h4 class="ch-chooseIconHeader"><i class="unhide icon"></i>Icon preview</h4>
+										<div class="ch-iconPreview"><i class="massive icon">{{room.icon}}</i></div>
+									</div>
+								</div>
 							</section>
 						</div>
 						<div class="center aligned">
