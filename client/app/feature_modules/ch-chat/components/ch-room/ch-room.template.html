@@ -1,9 +1,11 @@
-<section [ngSwitch]="componentReady">
+<section [ngSwitch]="componentReady" class="ch-room">
 	<div *ngSwitchCase="true" class="ui center aligned grid">
 		<section class="sixteen wide column" >
-			<h2><i class="huge icon">{{room.icon}}</i>{{room.name}}</h2>
+			<h2 class="ch-roomName">
+				<span class="ch-roomIconWrapper"><i class="big icon">{{room.icon}}</i></span> {{room.name}}
+			</h2>
 		</section>
-		<section class="ui list three wide column">
+		<section class="ui list three wide left aligned column">
 			<ch-feed [feed]="feed"></ch-feed>
 			<ch-room-users [connectedUsers]="connectedUsers"></ch-room-users>
 		</section>
