@@ -30,7 +30,9 @@ export class ChLobbyComponent {
     )
   }
   
-  deleteRoom(id) {
+  deleteRoom(event, id) {
+    event.preventDefault();
+    event.stopPropagation();
     let toDelete = confirm('Do you want to delete room?');
     if (toDelete) {
       this.roomService.deleteRoom(id).subscribe(

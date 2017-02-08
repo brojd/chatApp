@@ -27,9 +27,47 @@
 .ch-createRoomHeader {
   text-align: left;
   color: #e4e4e4;
+  margin-bottom: 30px;
 }
 
 .ch-chooseIconHeader {
   text-align: left;
   color: #e4e4e4;
+}
+
+.ch-listOfRooms {
+  list-style: none;
+  box-shadow: 0px 0px 0px 1px #888888, -2px 2px darkgrey, -10px 10px 26px 0 #1c202b;
+  border-radius: 2px;
+  background: white;
+  padding: 0;
+}
+
+.ch-roomElem {
+  background: white;
+  border-bottom: 1px solid #eaeaea;
+  padding: 10px 0 10px 10px;
+  display: block;
+}
+
+.ch-roomElem:hover {
+  background: #efefef;
+}
+
+.ch-roomName {
+  color: #868686;
+  margin-left: 30px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ch-deleteRoomIcon {
+  float: right;
+  margin: 16px 16px 0 0;
+  color: #b5b5b5;
+}
+
+.ch-deleteRoomIcon:hover {
+  cursor: pointer;
+  color: #787878;
 }
