@@ -30,4 +30,8 @@ export class ChFeedComponent {
     this.scrollToBottom();
   }
   
+  ngOnInit() {
+    console.log(this.feed);
+  }
+  
 }
