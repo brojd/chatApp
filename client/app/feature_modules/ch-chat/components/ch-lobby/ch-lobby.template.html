@@ -1,8 +1,8 @@
 <section class="ch-lobby">
 	<div class="ui center aligned grid" [ngSwitch]="componentReady">
-		<div class="twelve wide column" *ngSwitchCase="true">
+		<div class="twelve wide computer fifteen wide tablet column" *ngSwitchCase="true">
 			<section class="ui grid">
-				<form class="ui form seven wide column" #roomForm="ngForm">
+				<form class="ui form seven wide computer eight wide tablet column" #roomForm="ngForm">
 						<div class="field">
 							<h3 class="ch-createRoomHeader"><i class="plus square outline large icon"></i>Create room</h3>
 							<input type="text"
@@ -16,7 +16,7 @@
 						<div class="field">
 							<section class="ch-iconPickerSection">
 								<div class="ui grid">
-									<div class="seven wide column">
+									<div class="seven wide computer eight wide tablet column">
 										<h4 class="ch-chooseIconHeader"><i class="hand pointer icon"></i>Choose icon</h4>
 										<ch-emoji-picker (onIconClick)="handleIconClick($event)"
 																		 [right]="null"
@@ -25,7 +25,7 @@
 																		 class="ch-emoji-picker">
 										</ch-emoji-picker>
 									</div>
-									<div class="seven wide right floated column">
+									<div class="seven wide computer eight wide tablet right floated column">
 										<h4 class="ch-chooseIconHeader"><i class="unhide icon"></i>Icon preview</h4>
 										<div class="ch-iconPreview"><i class="massive icon">{{room.icon}}</i></div>
 									</div>
@@ -41,7 +41,7 @@
 							</button>
 						</div>
 				</form>
-				<section class="left aligned seven wide right floated column">
+				<section class="left aligned  seven wide computer eight wide tablet right floated column">
 					<h3 class="ch-createRoomHeader"><i class="unordered list large icon"></i> List of rooms</h3>
 					<ul class="ch-listOfRooms">
 						<li *ngFor="let room of rooms">
