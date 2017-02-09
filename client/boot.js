@@ -15,8 +15,8 @@ import { CORE_PROVIDERS, CORE_DECLARATIONS, AppComponent } from './app/core';
 import { AUTH_PROVIDERS, AUTH_DECLARATIONS } from './app/auth';
 
 // Feature Modules
-import { AboutModule } from './app/feature_modules/about';
-import { MyProfileModule } from './app/feature_modules/my-profile';
+import { ChAboutModule } from './app/feature_modules/ch-about';
+import { ChChatModule } from './app/feature_modules/ch-chat';
 
 if (ENVIRONMENT === 'production') {
   enableProdMode();
@@ -25,7 +25,7 @@ if (ENVIRONMENT === 'production') {
 @NgModule({
   declarations: [CORE_DECLARATIONS, AUTH_DECLARATIONS],
   imports: [
-    HttpModule, BrowserModule, FormsModule, ReactiveFormsModule, AboutModule, MyProfileModule,
+    HttpModule, BrowserModule, FormsModule, ReactiveFormsModule, ChAboutModule, ChChatModule,
     TranslateModule.forRoot(),
     RouterModule.forRoot(routes, {
       useHash: true

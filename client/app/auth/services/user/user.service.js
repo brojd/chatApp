@@ -19,16 +19,16 @@ export class UserService {
   }
 
   login(credentials) {
-    debugger;
     return this._http
       .post(`${API_URL}/login`, credentials)
       .map(res => res.json())
       .map(res => {
         if (res.success) {
-          this._storage.setAuthToken(res.token); // this should be a real token generated on backend
+          this._storage.setAuthToken(res.token);
+          this._storage.setUserDetails(res.userId, res.nickname, res.avatarUrl);
           this._loggedIn.next(true);
         }
-        return res.success;
+        return res;
       })
   }
 
@@ -44,6 +44,16 @@ export class UserService {
 
   getLoggedIn() {
     return this._loggedIn;
+  }
+  
+  signup(credentials) {
+    return this._http
+      .post(`${API_URL}/signup`, credentials)
+      .map(res => res.json())
+  }
+  
+  getCurrentUserDetails() {
+    return this._storage.getUserDetails();
   }
   
 }

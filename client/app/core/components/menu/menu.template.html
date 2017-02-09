@@ -1,9 +1,0 @@
-<div class="ui menu">
-    <a class="header item" [routerLink]="['']">ng2-es2015-starter</a>
-    <a class="item" [routerLink]="['/about']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">About</a>
-    <a class="item" [routerLink]="['/my-profile']" routerLinkActive="active">My Profile</a>
-    <div class="right menu">
-        <a class="item" [routerLink]="['/login']" *ngIf="!(getLoggedIn() | async)">Log in</a>
-        <a class="item" href="#" (click)="logout()" *ngIf="getLoggedIn() | async">Log out</a>
-    </div>
-</div>

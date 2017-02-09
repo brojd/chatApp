@@ -1,7 +1,8 @@
 import { StorageService } from './services/storage/storage.service';
 import { UserService } from './services/user/user.service';
 
-import { LoginComponent } from './components/login/login.component';
+import { ChLogInComponent } from './components/ch-log-in/ch-log-in.component';
+import { ChSignUpComponent } from './components/ch-sign-up/ch-sign-up.component';
 
 export {
   StorageService,
@@ -9,4 +10,4 @@ export {
 };
 
 export const AUTH_PROVIDERS = [StorageService, UserService];
-export const AUTH_DECLARATIONS = [LoginComponent];
+export const AUTH_DECLARATIONS = [ChLogInComponent, ChSignUpComponent];
