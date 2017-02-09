@@ -26,7 +26,6 @@ const addUserToRoom = (roomId, userId) => {
 
 const deleteUserFromRoom = (roomId, userId) => {
   let usersInRoomsCopy = usersInRooms.slice();
-  console.log(usersInRoomsCopy);
   usersInRooms.map((room) => {
     if (room.id == roomId) {
       room.users = room.users.filter((user) => user !== userId);
