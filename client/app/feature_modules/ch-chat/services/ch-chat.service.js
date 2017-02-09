@@ -20,9 +20,10 @@ export class ChChatService {
   }
   
   connectToChat(roomId) {
-    let userNickname = this.userService.getCurrentUserDetails().nickname;
+    const userId = this.userService.getCurrentUserDetails().userId;
+    const nickname = this.userService.getCurrentUserDetails().nickname;
     let observable = new Observable(observer => {
-      this.socket = io(API_URL, {query: `roomId=${roomId}&nickname=${userNickname}`});
+      this.socket = io(API_URL, {query: `roomId=${roomId}&userId=${userId}&nickname=${nickname}`});
       this.socket.on('connect', () => {
         this.roomService.getRoom(roomId).subscribe(
           room => {
@@ -43,9 +44,6 @@ export class ChChatService {
       this.socket.on('message', (message) => {
         observer.next(message);
       });
-      return () => {
-        this.socket.disconnect();
-      };
     });
     return observable;
   }
@@ -55,9 +53,6 @@ export class ChChatService {
       this.socket.on('user-connected', (data) => {
         observer.next(data);
       });
-      return () => {
-        this.socket.disconnect();
-      };
     });
     return observable;
   }
@@ -65,12 +60,38 @@ export class ChChatService {
   notifyUserDisconnected() {
     let observable = new Observable(observer => {
       this.socket.on('user-disconnected', (data) => {
-        console.log('discon');
         observer.next(data);
       });
-      return () => {
-        this.socket.disconnect();
-      };
+    });
+    return observable;
+  }
+  
+  uploadFileToServer(file, fileData) {
+    let objToSend = {
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      fileData: fileData
+    };
+    this.socket.emit('fileUpload', objToSend);
+    let observable = new Observable(observer => {
+      this.socket.on('fileUploadFinish', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+  
+  downloadFile(name, date) {
+    let fileInfo = {
+      name: name,
+      date: date
+    };
+    this.socket.emit('fileDownload', fileInfo);
+    let observable = new Observable(observer => {
+      this.socket.on('fileDownloadFinish', (data) => {
+        observer.next(data);
+      });
     });
     return observable;
   }

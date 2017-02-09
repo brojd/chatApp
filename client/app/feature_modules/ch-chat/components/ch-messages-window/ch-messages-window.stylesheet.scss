@@ -1,4 +1,32 @@
 .ch-messages-window {
   height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.ch-fileSentInfo {
+  margin: 0;
+  font-size: 1em;
+  font-weight: 700;
+  color: rgb(33, 133, 208);
+}
+
+.ch-sentFileLabel {
+  margin-bottom: 8px;
+}
+
+.ch-continuedMessage {
+  margin: -9px 0 0 50px !important;
+}
+
+.ui.feed>.event>.label+.content {
+  margin-bottom: 0;
+}
+
+.ui.feed>.event>.content .summary {
+  border-bottom: 1px solid #cecece;
+}
+
+.ui.feed>.event>.content .summary .date {
+  float: right;
+  margin-right: 15px;
 }

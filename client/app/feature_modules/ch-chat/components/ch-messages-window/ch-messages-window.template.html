@@ -1,10 +1,34 @@
-<section class="ch-messages-window" #scrollMeDown>
-	<div *ngFor="let message of messages; let index = index;">
-		<div *ngIf="messages[index+1] &&!areDatesTheSame(message.date, messages[index+1].date) ||
-							  messages[index-1] && !areDatesTheSame(message.date, messages[index-1].date)"
-				 class="ui small header">
-			{{message.date | date:'fullDate'}}
+<section class="ui feed ch-messages-window" #scrollMeDown>
+	<div *ngFor="let message of messages; let index = index;" class="event">
+		<div class="label" *ngIf="(index > 0 && messages[index-1].nickname !== message.nickname) || index === 0">
+			<img src="{{message.avatarUrl}}" alt="user_avatar" class="ui mini inline circular image" *ngIf="message.avatarUrl"/>
 		</div>
-		{{message.date | date:'mediumTime'}}: {{message.nickname}} {{message.text}}
+		<div class="content">
+			<div class="summary" *ngIf="(index > 0 && messages[index-1].nickname !== message.nickname) || index === 0">
+				<a>{{message.nickname}}</a> has written
+				<div class="date">
+					<div *ngIf="messages[index+1] &&!areDatesTheSame(message.date, messages[index+1].date) ||
+							  messages[index-1] && !areDatesTheSame(message.date, messages[index-1].date)"
+							 class="ui small header">
+						{{message.date | date:'fullDate'}}
+					</div>
+					{{message.date | date:'mediumTime'}}
+				</div>
+			</div>
+			<div class="extra text"
+					 [ngClass]="{'ch-continuedMessage': !((index > 0 && messages[index-1].nickname !== message.nickname) || index === 0)}">
+				<span [ngClass]="{'ch-fileSentInfo': message.hasFile}">
+					<i class="file grey icon" *ngIf="message.hasFile"></i>{{message.text}}
+				</span>
+				<span class="ui label ch-sentFileLabel" *ngIf="message.hasFile">
+					{{message.file.name}} (size: {{message.file.size/1000}} kB)
+					<button type="button"
+									class="ui mini blue button"
+									(click)="downloadFileClicked(message.file.name, message.file.date, message.file.type)">
+						Download
+					</button>
+				</span>
+			</div>
+		</div>
 	</div>
 </section>

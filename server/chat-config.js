@@ -1,4 +1,4 @@
 module.exports = {
-  messagesLimitPerRoom: 1000,
+  messagesLimitPerRoom: 200,
   feedLimitPerRoom: 20
 };

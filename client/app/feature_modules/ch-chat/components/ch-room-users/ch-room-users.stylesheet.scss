@@ -1,0 +1,31 @@
+.ch-room-users {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+}
+
+.ch-user {
+  margin-bottom: 10px;
+}
+
+.ch-usersList {
+  height: 275px;
+  overflow-y: auto;
+}
+
+.ch-user__nickname {
+  color: #D8D9DA;
+  margin-left: 15px;
+}
+
+.ch-room-users__header {
+  color: #e4e4e4;
+  text-align: left;
+}
+
+.ch-onlineIcon {
+  float: right;
+  margin-top: 8px;
+}

@@ -1,11 +1,13 @@
 'use strict';
 let express = require('express');
+let mkdirp = require('mkdirp');
 let bodyParser = require('body-parser');
 let config = require('./config');
-let chatConfig = require('./chat-config');
 let authRoutes = require('./routes/auth');
 let roomRoutes = require('./routes/room');
 let mongoose = require('mongoose');
+let socketHandler = require('./socket-handler');
+let loggedUsers = require('./usersInRooms');
 let Room = require('./models/room.model');
 
 let app = express();
@@ -18,77 +20,20 @@ mongoose.connection.once('open', () => {
 });
 
 app.use(express.static(config.staticPath));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: config.maxRequestSize }));
+app.use(bodyParser.json({ limit: config.maxRequestSize }));
 
 app.use('/', authRoutes);
 app.use('/rooms', roomRoutes);
 
-
-io.on('connection', (socket) => {
-  
-  const roomId = socket.handshake.query.roomId;
-  const nickname = socket.handshake.query.nickname;
-  socket.room = roomId;
-  socket.join(roomId);
-  Room.findOne({ _id: roomId }, (err, room) => {
-    if (err) throw err;
-    let feed = room.feed.slice();
-    feed.push({
-      nickname: nickname,
-      date: new Date(),
-      info: ' has joined the chat'
-    });
-    if (feed.length > chatConfig.feedLimitPerRoom) {
-      feed.shift();
-    }
-    room.feed = feed;
-    room.save((err) => {
-      if (err) throw err;
-      socket.to(roomId).emit('user-connected', { feed: feed });
-    })
-  });
-  
-  socket.on('disconnect', () => {
-    Room.findOne({ _id: roomId }, (err, room) => {
-      if (err) throw err;
-      let feed = room.feed.slice();
-      feed.push({
-        nickname: nickname,
-        date: new Date(),
-        info: ' has left the chat'
-      });
-      if (feed.length > chatConfig.feedLimitPerRoom) {
-        feed.shift();
-      }
-      room.feed = feed;
-      console.log(room);
-      room.save((err) => {
-        if (err) throw err;
-        socket.to(roomId).emit('user-disconnected', { feed: feed });
-        socket.leave(roomId);
-      });
-    });
-  });
-  
-  socket.on('add-message', (message) => {
-    Room.findOne({ _id: roomId }, (err, room) => {
-      if (err) throw err;
-      let messages = room.messages.slice();
-      messages.push(message);
-      if (messages.length > chatConfig.messagesLimitPerRoom) {
-        messages.shift();
-      }
-      room.messages = messages;
-      room.save((err) => {
-        if (err) throw err;
-        io.to(roomId).emit('message', message);
-      })
-    });
-  });
-  
+Room.find({}, (err, rooms) => {
+  if (err) throw err;
+  loggedUsers.generateRooms(rooms);
 });
 
+io.on('connection', (socket) => {
+  socketHandler(io, socket);
+});
 
 http.listen(config.port);
 console.log(`Listening on port ${config.port}`);

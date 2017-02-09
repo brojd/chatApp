@@ -1,0 +1,69 @@
+.visible {
+  visibility: visible;
+  overflow-y: auto;
+}
+
+.hidden {
+  visibility: hidden;
+  overflow-y: hidden;
+}
+
+.ch-room {
+  margin-top: -100px;
+}
+
+.ch-roomName {
+  color: #e4e4e4;
+  height: 75px;
+  line-height: 75px;
+}
+
+.ch-iconPickerSection {
+  margin-left: auto;
+  position: relative;
+}
+
+.ch-emoji-picker {
+  height: 165px;
+  overflow-x: hidden;
+  background: white;
+  padding: 50px;
+  position: absolute;
+  bottom: 38px;
+  right: 0;
+  width: 300%;
+  box-shadow: 0px 0px 0px 1px #c5c5c5, -1px 1px #676767, -4px 4px 20px 0 #a9a9a9;
+  border-radius: 2px;
+}
+
+.ch-emoji-pickerWrapper {
+
+}
+
+.ch-feedHeader {
+  color: #e4e4e4;
+  text-align: left;
+}
+
+.ch-feedWrapper {
+  margin-top: -15px;
+}
+
+.ch-chatWindow {
+  box-shadow: 0px 0px 0px 1px #8e8e8e, -3px 3px #7d7d7d, -10px 10px 26px 0 #1c202b;
+  border-radius: 1px;
+  background: white;
+  padding: 25px;
+}
+
+.ch-inputSection {
+  margin-top: 30px;
+  background: rgb(239, 239, 239);
+  padding: 15px;
+  box-shadow: 0px 0px 0px 1px rgba(142, 142, 142, 0.32), -3px 3px rgba(125, 125, 125, 0.11), -4px 4px 28px 0 rgba(28, 32, 43, 0.17);
+  border-radius: 1px;
+}
+
+.ui.form .inline.fields {
+  margin: 0;
+}
