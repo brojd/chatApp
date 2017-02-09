@@ -17,8 +17,10 @@
 			</div>
 			<div class="extra text"
 					 [ngClass]="{'ch-continuedMessage': !((index > 0 && messages[index-1].nickname !== message.nickname) || index === 0)}">
-				{{message.text}}
-				<span class="ui label" *ngIf="message.hasFile">
+				<span [ngClass]="{'ch-fileSentInfo': message.hasFile}">
+					<i class="file grey icon" *ngIf="message.hasFile"></i>{{message.text}}
+				</span>
+				<span class="ui label ch-sentFileLabel" *ngIf="message.hasFile">
 					{{message.file.name}} (size: {{message.file.size/1000}} kB)
 					<button type="button"
 									class="ui mini blue button"
