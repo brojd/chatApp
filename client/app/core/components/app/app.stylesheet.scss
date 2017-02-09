@@ -1,4 +1,9 @@
 .ch-appWrapper {
+  background: #354359 url('./images/back-photo.jpeg') no-repeat fixed center;
+}
+
+.ch-app {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0) 5%, #354359 75%), linear-gradient(to bottom, rgba(97, 116, 146, 0.31) 20%, rgba(255, 255, 255, 0) 30%);
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -7,6 +12,9 @@
 
 .ch-main {
   flex: 1;
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
+.ch-footer {
+  color: #e4e4e4;
+}

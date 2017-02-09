@@ -1,0 +1,14 @@
+<section class="ch-feed" #scrollMeDown>
+	<div class="ui feed">
+		<div class="event" *ngFor="let info of feed">
+			<div class="content">
+				<div class="summary ch-feedInfo">
+					<span class="ch-feedInfo__nickname">{{info.nickname}}</span> {{info.info}}
+					<div class="date ch-feedInfo__date">
+						{{info.date | date:'mediumTime'}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

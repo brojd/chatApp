@@ -13,31 +13,25 @@ export class StorageService {
     localStorage.removeItem(AUTH_KEY);
   }
   
-  setUserDetails(id, name, lastName, fullName, positionId) {
-    localStorage.setItem('userId', id);
-    localStorage.setItem('firstName', name);
-    localStorage.setItem('lastName', lastName);
-    localStorage.setItem('fullName', fullName);
-    localStorage.setItem('positionId', positionId);
+  setUserDetails(userId, nickname, avatarUrl) {
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('nickname', nickname);
+    localStorage.setItem('avatarUrl', avatarUrl);
+  }
+  
+  getUserDetails() {
+    let result = {
+      userId: localStorage.getItem('userId'),
+      nickname: localStorage.getItem('nickname'),
+      avatarUrl: localStorage.getItem('avatarUrl')
+    };
+    return result;
   }
   
   removeUserDetails() {
     localStorage.removeItem('userId');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
-    localStorage.removeItem('fullName');
-  }
-  
-  getUserName() {
-    return localStorage.getItem('firstName');
-  }
-  
-  getUserId() {
-    return localStorage.getItem('userId');
-  }
-  
-  getPositionId() {
-    return localStorage.getItem('positionId');
+    localStorage.removeItem('nickname');
+    localStorage.removeItem('avatarUrl');
   }
 
 }

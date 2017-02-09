@@ -1,10 +1,24 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
-var roomSchema = new Schema({
-  name: String
+let roomSchema = new Schema({
+  name: String,
+  icon: String,
+  messages: [{
+    nickname: String,
+    avatarUrl: String,
+    date: Date,
+    text: String,
+    hasFile: Boolean,
+    file: Object
+  }],
+  feed: [{
+    nickname: String,
+    date: Date,
+    info: String
+  }]
 });
 
-var Room = mongoose.model('Room', roomSchema);
+let Room = mongoose.model('Room', roomSchema);
 
 module.exports = Room;
