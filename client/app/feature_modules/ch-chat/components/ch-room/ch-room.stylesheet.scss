@@ -4,6 +4,7 @@
 
 .hidden {
   visibility: hidden;
+  overflow-y: hidden;
 }
 
 .ch-room {
@@ -18,6 +19,13 @@
 
 .ch-iconPickerSection {
   margin-left: auto;
+}
+
+.ch-emoji-pickerWrapper {
+  position: relative;
+  width: 200%;
+  right: 100%;
+  top: 16px;
 }
 
 .ch-feedHeader {
