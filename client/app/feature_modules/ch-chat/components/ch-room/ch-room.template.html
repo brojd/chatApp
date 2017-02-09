@@ -5,14 +5,14 @@
 				<span class="ch-roomIconWrapper"><i class="big icon">{{room.icon}}</i></span> {{room.name}}
 			</h2>
 		</section>
-		<section class="ui list three wide left aligned column">
+		<section class="ui list four wide computer six wide tablet left aligned column">
 			<div class="ch-feedWrapper">
 				<h4 class="ch-feedHeader"><i class="feed icon"></i><span>News</span></h4>
 				<ch-feed [feed]="feed"></ch-feed>
 				<ch-room-users [connectedUsers]="connectedUsers"></ch-room-users>
 			</div>
 		</section>
-		<section class="ten wide left aligned column">
+		<section class="nine wide left aligned column">
 			<div class="ch-chatWindow">
 				<ch-messages-window [messages]="messages" (onDownloadClicked)="handleDownloadFileClick($event)"></ch-messages-window>
 				<div class="ch-inputSection">
@@ -31,7 +31,12 @@
 							</div>
 							<p>{{ emo | emojify }}</p>
 							<div class="field">
-								<button type="button" (click)="uploadFileToServer()" [disabled]="!isFileUploaded" class="ui button">Send file</button>
+								<button type="button"
+												(click)="uploadFileToServer()"
+												[disabled]="!isFileUploaded"
+												class="ui mini button">
+									Send file
+								</button>
 							</div>
 							<section class="ch-iconPickerSection">
 								<ch-emoji-picker (onIconClick)="handleIconClick($event)"
@@ -42,7 +47,7 @@
 												(click)="iconPickerVisible=true"
 												*ngIf="!iconPickerVisible"
 												class="ui orange mini button">
-									Show icon picker
+									Show icons
 								</button>
 								<button type="button"
 												(click)="iconPickerVisible=false"
