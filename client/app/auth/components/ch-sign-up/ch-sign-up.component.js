@@ -5,6 +5,7 @@ import template from './ch-sign-up.template.html';
 import { UserService } from '../../services/user/user.service';
 import { validatorFactory } from '../../../validator';
 import styles from './ch-sign-up.stylesheet.scss';
+import { maxUploadAvatarLimitInBytes } from '../../../../config';
 
 @Component({
   selector: 'ch-sign-up',
@@ -24,8 +25,33 @@ export class ChSignUpComponent {
       Password: ['', Validators.required]
     });
   }
+  
+  handleUploadFile(event) {
+    let file = event.target.files[0];
+    if (file.size > maxUploadAvatarLimitInBytes) {
+      alert('Upload file up to 100kB');
+      event.target.value = '';
+      return false;
+    } else if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
+      alert('You can upload either .png or .jpeg files');
+      event.target.value = '';
+      return false;
+    }
+    let fileReader = new FileReader();
+    fileReader.onloadstart = (e) => {
+      this.isFileUploading = true;
+    };
+    fileReader.onloadend = (e) => {
+      this.isFileUploading = false;
+      this.isFileUploaded = true;
+      this.avatar = e.target.result;
+      this.uploadedFile = file;
+    };
+    fileReader.readAsDataURL(file);
+  }
 
   onSubmit(credentials) {
+    credentials.AvatarURL = this.avatar;
     this._userService.signup(credentials).subscribe(
       result => {
         if (result.success === true) {

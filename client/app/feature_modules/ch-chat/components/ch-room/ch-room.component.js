@@ -22,17 +22,19 @@ export class ChRoomComponent {
     this.messages = [];
     this.messageText = '';
     this.userService = userService;
-    this.userNickname = userService.getCurrentUserDetails().nickname;
+    this.user = userService.getCurrentUserDetails();
     this.feed = [];
     this.connectedUsers = [];
     this.room = { name: '', icon: '' };
     this.isFileUploading = false;
     this.isFileUploaded = false;
+    this.componentReady = false;
   }
   
   sendMessage() {
     let message = {
-      nickname: this.userNickname,
+      nickname: this.user.nickname,
+      avatarUrl: this.user.avatarUrl,
       date: new Date(),
       text: this.messageText,
       hasFile: false,
@@ -67,9 +69,9 @@ export class ChRoomComponent {
     this.chatService.uploadFileToServer(this.uploadedFile, this.fileData).subscribe(
       file => {
         let message = {
-          nickname: this.userNickname,
+          nickname: this.user.nickname,
           date: new Date(),
-          text: `${this.userNickname} sent file`,
+          text: `${this.user.nickname} sent file`,
           hasFile: true,
           file: file
         };
@@ -103,6 +105,7 @@ export class ChRoomComponent {
           this.room = room;
           this.feed = room.feed;
           this.messages = room.messages;
+          this.componentReady = true;
         });
       });
     this.listenMessages = this.chatService.listenNewMessages().subscribe(
@@ -110,13 +113,13 @@ export class ChRoomComponent {
     );
     this.listenUserConnected = this.chatService.notifyUserConnected().subscribe(
       (data) => {
-        this.connectedUsers = data.usersInRoom.users.slice();
+        this.connectedUsers = data.usersInRoom.slice();
         this.feed = data.feed.slice();
       }
     );
     this.listenUserDisconnected = this.chatService.notifyUserDisconnected().subscribe(
       (data) => {
-        this.connectedUsers = data.usersInRoom.users.slice();
+        this.connectedUsers = data.usersInRoom.slice();
         this.feed = data.feed.slice();
       }
     );

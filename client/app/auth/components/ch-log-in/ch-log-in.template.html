@@ -1,9 +1,8 @@
-<div class="center aligned pt-login">
-	<div class="ui header">Log in</div>
-	<div class="ui left aligned segment">
-		<form (ngSubmit)="onSubmit(loginForm.value)" [formGroup]="loginForm" class="ui form">
+<div class="center aligned ch-login">
+	<h3 class="ch-loginForm__label"><i class="sign in large icon"></i> Log in</h3>
+		<form (ngSubmit)="onSubmit(loginForm.value)" [formGroup]="loginForm" class="ui form ch-loginForm">
 			<div class="field">
-				<label for="login-email">Email</label>
+				<h4 class="ch-loginForm__label" for="login-email">Email</h4>
 				<input type="text" formControlName="Email" id="login-email">
 			</div>
 			<div *ngIf="loginForm.controls.Email.hasError('required') && loginForm.controls.Email.touched"
@@ -15,7 +14,7 @@
 				Email is invalid
 			</div>
 			<div class="field">
-				<label for="login-password">Password</label>
+				<h4 class="ch-loginForm__label">Password</h4>
 				<input type="password" formControlName="Password" id="login-password">
 			</div>
 			<div *ngIf="loginForm.controls.Password.hasError('required') && loginForm.controls.Password.touched"
@@ -23,7 +22,6 @@
 				Password is required
 			</div>
 			<div *ngIf="error" class="ui negative message">{{error}}</div>
-			<button type="submit" [disabled]="!loginForm.valid" class="ui button pt-loginButton">Login</button>
+			<button type="submit" [disabled]="!loginForm.valid" class="ui button ch-loginButton">Login</button>
 		</form>
-	</div>
 </div>

@@ -20,8 +20,8 @@ mongoose.connection.once('open', () => {
 });
 
 app.use(express.static(config.staticPath));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: config.maxRequestSize }));
+app.use(bodyParser.json({ limit: config.maxRequestSize }));
 
 app.use('/', authRoutes);
 app.use('/rooms', roomRoutes);
