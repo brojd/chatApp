@@ -3,8 +3,10 @@ let Schema = mongoose.Schema;
 
 let roomSchema = new Schema({
   name: String,
+  icon: String,
   messages: [{
     nickname: String,
+    avatarUrl: String,
     date: Date,
     text: String,
     hasFile: Boolean,

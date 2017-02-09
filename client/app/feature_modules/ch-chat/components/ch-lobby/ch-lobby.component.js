@@ -14,34 +14,48 @@ export class ChLobbyComponent {
     this.roomService = roomService;
     this.room = {};
     this.rooms = [];
+    this.componentReady = false;
   }
   
   createRoom() {
     this.roomService.createRoom(this.room).subscribe(
       res => {
         if (res.success) {
-          this.rooms.unshift(res.room);
+          this.rooms.push(res.room);
           this.room.name = '';
+          this.room.icon = '';
         }
       },
       err => console.log(err)
     )
   }
   
-  deleteRoom(id) {
-    this.roomService.deleteRoom(id).subscribe(
-      res => {
-        if (res.success) {
-          this.rooms = this.rooms.filter(room => room._id !== id);
-        }
-      },
-      err => console.log(err)
-    );
+  deleteRoom(event, id) {
+    event.preventDefault();
+    event.stopPropagation();
+    let toDelete = confirm('Do you want to delete room?');
+    if (toDelete) {
+      this.roomService.deleteRoom(id).subscribe(
+        res => {
+          if (res.success) {
+            this.rooms = this.rooms.filter(room => room._id !== id);
+          }
+        },
+        err => console.log(err)
+      );
+    }
+  }
+  
+  handleIconClick(icon) {
+    this.room.icon = icon;
   }
   
   ngOnInit() {
     this.roomService.getRooms().subscribe(
-      rooms => this.rooms = rooms,
+      rooms => {
+        this.rooms = rooms;
+        this.componentReady = true;
+      },
       err => console.log(err)
     );
   }

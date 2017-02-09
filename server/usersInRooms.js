@@ -10,25 +10,30 @@ const getAllRooms = () => usersInRooms;
 
 const getRoom = (roomId) => usersInRooms.find((room) => room.id == roomId);
 
-const addUserToRoom = (roomId, nickname) => {
+const addRoom = (room) => usersInRooms.push(room);
+
+const deleteRoom = (roomId) => usersInRooms = usersInRooms.filter((room) => room.id != roomId);
+
+const addUserToRoom = (roomId, userId) => {
   usersInRooms.map((room) => {
     if (room.id == roomId) {
-      room.users = [ ...room.users, nickname ];
+      room.users = [ ...room.users, userId ];
       return room;
     }
     return room;
   });
 };
 
-const deleteUserFromRoom = (roomId, nickname) => {
+const deleteUserFromRoom = (roomId, userId) => {
   let usersInRoomsCopy = usersInRooms.slice();
+  console.log(usersInRoomsCopy);
   usersInRooms.map((room) => {
     if (room.id == roomId) {
-      room.users = room.users.filter((user) => user !== nickname);
+      room.users = room.users.filter((user) => user !== userId);
       return room;
     }
     return room;
   });
 };
 
-module.exports = { generateRooms, getAllRooms, getRoom, addUserToRoom, deleteUserFromRoom };
+module.exports = { generateRooms, addRoom, deleteRoom, getAllRooms, getRoom, addUserToRoom, deleteUserFromRoom };
