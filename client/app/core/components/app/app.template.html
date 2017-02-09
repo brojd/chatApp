@@ -1,11 +1,11 @@
 <div class="ch-appWrapper">
-	<nav>
+  <div class="ch-app">
     <top-menu></top-menu>
-  </nav>
-  <main class="ch-main">
-    <router-outlet></router-outlet>
-  </main>
-  <footer class="ui center aligned container">
-    <p class="text-muted">Created by <a href="https://github.com/dominik791">Dominik Broj</a> ({{ environment }}).</p>
-  </footer>
+    <main class="ch-main">
+      <router-outlet></router-outlet>
+    </main>
+    <footer class="ui center aligned container ch-footer">
+      <p class="text-muted">Created by <a href="https://github.com/dominik791">Dominik Broj</a> ({{ environment }}).</p>
+    </footer>
+  </div>
 </div>

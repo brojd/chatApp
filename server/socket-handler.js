@@ -2,16 +2,20 @@ let mongoose = require('mongoose');
 let fs = require('fs');
 let mkdirp = require('mkdirp');
 let Room = require('./models/room.model');
+let User = require('./models/user.model');
 let chatConfig = require('./chat-config');
+let loggedUsers = require('./usersInRooms');
 
 module.exports = (io, socket) => {
   
   // user connected
   const roomId = socket.handshake.query.roomId;
+  const userId = socket.handshake.query.userId;
   const nickname = socket.handshake.query.nickname;
   const socketId = socket.id;
   socket.room = roomId;
   socket.join(roomId);
+  loggedUsers.addUserToRoom(roomId, userId);
   Room.findOne({_id: roomId}, (err, room) => {
     if (err) throw err;
     let feed = room.feed.slice();
@@ -23,17 +27,20 @@ module.exports = (io, socket) => {
     if (feed.length > chatConfig.feedLimitPerRoom) {
       feed.shift();
     }
+    const usersInRoom = loggedUsers.getRoom(roomId) ? loggedUsers.getRoom(roomId).users : [];
+    User.find({ _id: { $in: usersInRoom } }, (err, users) => {
+      if (err) throw err;
+      io.to(roomId).emit('user-connected', { feed: feed, usersInRoom: users });
+    });
     room.feed = feed;
-    console.log('now');
     room.save((err) => {
       if (err) throw err;
-      console.log('after');
-      socket.to(roomId).emit('user-connected', {feed: feed});
     })
   });
   
   // user disconnected
   socket.on('disconnect', () => {
+    loggedUsers.deleteUserFromRoom(roomId, userId);
     Room.findOne({_id: roomId}, (err, room) => {
       if (err) throw err;
       let feed = room.feed.slice();
@@ -45,18 +52,22 @@ module.exports = (io, socket) => {
       if (feed.length > chatConfig.feedLimitPerRoom) {
         feed.shift();
       }
+      const usersInRoom = loggedUsers.getRoom(roomId).users;
+      User.find({ _id: { $in: usersInRoom } }, (err, users) => {
+        if (err) throw err;
+        io.to(roomId).emit('user-disconnected', { feed: feed, usersInRoom: users });
+        socket.leave(roomId);
+      });
       room.feed = feed;
       room.save((err) => {
         if (err) throw err;
-        io.to(roomId).emit('user-disconnected', {feed: feed});
-        socket.leave(roomId);
       });
     });
   });
   
   // user sends text message
   socket.on('add-message', (message) => {
-    Room.findOne({_id: roomId}, (err, room) => {
+    Room.findOne({ _id: roomId}, (err, room) => {
       if (err) throw err;
       let messages = room.messages.slice();
       messages.push(message);

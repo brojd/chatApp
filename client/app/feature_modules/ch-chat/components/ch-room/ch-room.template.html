@@ -1,26 +1,63 @@
-<section class="ui center aligned grid">
-	<section class="ui list three wide column">
-		<ch-feed [feed]="feed"></ch-feed>
-	</section>
-	<section class="ten wide left aligned column">
-		<div class="ui segment">
-			<header class="ui centered header">{{roomName}}</header>
-			<ch-messages-window [messages]="messages" (onDownloadClicked)="handleDownloadFileClick($event)"></ch-messages-window>
-			<div class="ui center aligned form">
-				<textarea [(ngModel)]="messageText" (keyup.enter)="sendMessage()"></textarea>
+<section [ngSwitch]="componentReady" class="ch-room">
+	<div *ngSwitchCase="true" class="ui center aligned grid">
+		<section class="sixteen wide column" >
+			<h2 class="ch-roomName">
+				<span class="ch-roomIconWrapper"><i class="big icon">{{room.icon}}</i></span> {{room.name}}
+			</h2>
+		</section>
+		<section class="ui list three wide left aligned column">
+			<div class="ch-feedWrapper">
+				<h4 class="ch-feedHeader"><i class="feed icon"></i><span>News</span></h4>
+				<ch-feed [feed]="feed"></ch-feed>
+				<ch-room-users [connectedUsers]="connectedUsers"></ch-room-users>
 			</div>
-			<div class="ui form">
-				<div class="inline fields">
-					<div class="field">
-						<input type="file" (change)="handleUploadFile($event)"/>
-						<img src='./images/loadingFile.gif' alt='spinner' *ngIf="isFileUploading" />
-						<i class="checkmark green icon" *ngIf="isFileUploaded"></i>
+		</section>
+		<section class="ten wide left aligned column">
+			<div class="ch-chatWindow">
+				<ch-messages-window [messages]="messages" (onDownloadClicked)="handleDownloadFileClick($event)"></ch-messages-window>
+				<div class="ch-inputSection">
+					<div class="ui center aligned form">
+						<textarea [ngModel]="messageText | emojify"
+											(ngModelChange)="messageText=$event"
+											(keyup.enter)="sendMessage()">
+						</textarea>
 					</div>
-					<div class="field">
-						<button type="button" (click)="uploadFileToServer()" [disabled]="!isFileUploaded" class="ui button">Send file</button>
+					<div class="ui form">
+						<div class="inline fields">
+							<div class="field">
+								<input type="file" (change)="handleUploadFile($event)"/>
+								<img src='./images/loadingFile.gif' alt='spinner' *ngIf="isFileUploading" />
+								<i class="checkmark green icon" *ngIf="isFileUploaded"></i>
+							</div>
+							<p>{{ emo | emojify }}</p>
+							<div class="field">
+								<button type="button" (click)="uploadFileToServer()" [disabled]="!isFileUploaded" class="ui button">Send file</button>
+							</div>
+							<section class="ch-iconPickerSection">
+								<ch-emoji-picker (onIconClick)="handleIconClick($event)"
+																 class="ch-emoji-picker"
+																 [ngClass]="{'visible': iconPickerVisible, 'hidden': !iconPickerVisible}">
+								</ch-emoji-picker>
+								<button type="button"
+												(click)="iconPickerVisible=true"
+												*ngIf="!iconPickerVisible"
+												class="ui orange mini button">
+									Show icon picker
+								</button>
+								<button type="button"
+												(click)="iconPickerVisible=false"
+												*ngIf="iconPickerVisible"
+												class="ui orange mini button">
+									Hide icon picker
+								</button>
+							</section>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	</div>
+	<div *ngSwitchCase="false">
+		<ch-spinner></ch-spinner>
+	</div>
 </section>
