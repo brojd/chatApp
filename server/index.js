@@ -14,7 +14,7 @@ let app = express();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
 
-mongoose.connect('mongodb://admin:admin1!@ds161518.mlab.com:61518/chat');
+mongoose.connect(config.mongoDB_URI);
 mongoose.connection.once('open', () => {
   console.log('successfully connected to db');
 });
