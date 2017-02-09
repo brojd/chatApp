@@ -71,3 +71,14 @@
   cursor: pointer;
   color: #787878;
 }
+
+.ch-emoji-picker {
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: block;
+  background: white;
+  padding: 5px;
+  box-shadow: 0px 0px 0px 1px #717171, -2px 2px darkgrey, -10px 10px 26px 0 #1c202b;
+  border-radius: 2px;
+}

@@ -1,5 +1,6 @@
 .visible {
   visibility: visible;
+  overflow-y: auto;
 }
 
 .hidden {
@@ -19,13 +20,24 @@
 
 .ch-iconPickerSection {
   margin-left: auto;
+  position: relative;
+}
+
+.ch-emoji-picker {
+  height: 165px;
+  overflow-x: hidden;
+  background: white;
+  padding: 5px;
+  position: absolute;
+  bottom: 38px;
+  right: 0;
+  width: 230%;
+  box-shadow: 0px 0px 0px 1px #c5c5c5, -1px 1px #676767, -4px 4px 20px 0 #a9a9a9;
+  border-radius: 2px;
 }
 
 .ch-emoji-pickerWrapper {
-  position: relative;
-  width: 200%;
-  right: 100%;
-  top: 16px;
+
 }
 
 .ch-feedHeader {
