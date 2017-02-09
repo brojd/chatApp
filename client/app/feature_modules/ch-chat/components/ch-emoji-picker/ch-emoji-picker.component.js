@@ -13,6 +13,7 @@ export class ChEmojiPickerComponent {
   @Output() onIconClick = new EventEmitter();
   @Input() bottom = '40px';
   @Input() right = '5px';
+  @Input() show_placeholders = true;
   
   constructor() {
     this.icons = emoji;
