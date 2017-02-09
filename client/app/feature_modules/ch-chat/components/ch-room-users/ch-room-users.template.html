@@ -1,0 +1,12 @@
+<section class="ch-room-users">
+	<h4 class="ch-room-users__header"><i class="world icon"></i>Users online</h4>
+	<div class="ui list ch-usersList">
+		<div *ngFor="let user of connectedUsers" class="item">
+			<div class="ch-user">
+				<img src="{{user.avatarUrl}}" alt="user_avatar" class="ui mini inline circular image" />
+				<span class="ch-user__nickname">{{user.nickname}}</span>
+				<i class="circle green icon ch-onlineIcon"></i>
+			</div>
+		</div>
+	</div>
+</section>

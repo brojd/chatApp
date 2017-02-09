@@ -7,6 +7,8 @@ let authRoutes = require('./routes/auth');
 let roomRoutes = require('./routes/room');
 let mongoose = require('mongoose');
 let socketHandler = require('./socket-handler');
+let loggedUsers = require('./usersInRooms');
+let Room = require('./models/room.model');
 
 let app = express();
 let http = require('http').Server(app);
@@ -18,11 +20,16 @@ mongoose.connection.once('open', () => {
 });
 
 app.use(express.static(config.staticPath));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: config.maxRequestSize }));
+app.use(bodyParser.json({ limit: config.maxRequestSize }));
 
 app.use('/', authRoutes);
 app.use('/rooms', roomRoutes);
+
+Room.find({}, (err, rooms) => {
+  if (err) throw err;
+  loggedUsers.generateRooms(rooms);
+});
 
 io.on('connection', (socket) => {
   socketHandler(io, socket);

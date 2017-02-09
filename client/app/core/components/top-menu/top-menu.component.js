@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import template from './menu.template.html';
+import template from './top-menu.template.html';
+import styles from './top-menu.stylesheet.scss';
 import { UserService } from '../../../auth';
 
 @Component({
   selector: 'top-menu',
-  template: template
+  template: template,
+  styles: [styles]
 })
-export class MenuComponent {
+export class TopMenuComponent {
   
   constructor(userService: UserService, router: Router) {
     this.userService = userService;

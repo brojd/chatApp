@@ -12,7 +12,7 @@ export class ChChatComponent {
   
   constructor(userService: UserService) {
     this.userService = userService;
-    this.userNickname = userService.getCurrentUserDetails().nickname;
+    this.user = userService.getCurrentUserDetails();
   }
   
 }
