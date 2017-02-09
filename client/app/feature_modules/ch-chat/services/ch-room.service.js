@@ -15,6 +15,12 @@ export class ChRoomService {
       .map(res => res.json());
   }
   
+  getRoom(id) {
+    return this._http
+      .get(`${API_URL}/rooms/${id}`)
+      .map(res => res.json());
+  }
+  
   createRoom(room) {
     return this._http
       .post(`${API_URL}/rooms`, room)

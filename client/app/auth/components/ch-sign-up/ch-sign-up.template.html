@@ -1,0 +1,53 @@
+<div class="center aligned ch-signup">
+	<h3 class="ch-signupForm__label"><i class="add user large icon"></i> Sign up</h3>
+	<form (ngSubmit)="onSubmit(signupForm.value)" [formGroup]="signupForm" class="ui form ch-signupForm">
+		<div class="field">
+			<h4 class="ch-signupForm__label">Nickname</h4>
+			<input type="text"
+						 formControlName="Nickname"
+						 id="signup-nickname">
+		</div>
+		<div *ngIf="signupForm.controls.Nickname.hasError('required') && signupForm.controls.Nickname.touched"
+				 class="ui negative message">
+			Nickname is required
+		</div>
+		<div *ngIf="signupForm.controls.Nickname.hasError('minlength') && signupForm.controls.Nickname.touched"
+				 class="ui negative message">
+			Nickname should include at least 4 symbols
+		</div>
+		<div *ngIf="signupForm.controls.Nickname.hasError('pattern') && signupForm.controls.Nickname.touched"
+				 class="ui negative message">
+			Spaces are not allowed
+		</div>
+		<div class="field">
+			<h4 class="ch-signupForm__label">Email</h4>
+			<input type="text" formControlName="Email" id="signup-email">
+		</div>
+		<div *ngIf="signupForm.controls.Email.hasError('required') && signupForm.controls.Email.touched"
+				 class="ui negative message">
+			Email is required
+		</div>
+		<div *ngIf="signupForm.controls.Email.hasError('email') && signupForm.controls.Email.touched"
+				 class="ui negative message">
+			Email is invalid
+		</div>
+		<div class="field">
+			<h4 class="ch-signupForm__label">Password</h4>
+			<input type="password" formControlName="Password" id="signup-password">
+		</div>
+		<div *ngIf="signupForm.controls.Password.hasError('required') && signupForm.controls.Password.touched"
+				 class="ui negative message">
+			Password is required
+		</div>
+		<div class="field">
+			<h4 class="ch-signupForm__label">Upload your avatar</h4>
+			<input type="file" (change)="handleUploadFile($event)" id="signup-avatar"/>
+			<img src='./images/loadingFile.gif' alt='spinner' *ngIf="isFileUploading" />
+		</div>
+		<div class="ch-avatarPreview">
+			<img *ngIf="isFileUploaded" src="{{avatar}}" alt="avatar" class="ui tiny circular centered image"/>
+		</div>
+		<div *ngIf="error" class="ui negative message">{{error}}</div>
+		<button type="submit" [disabled]="!signupForm.valid" class="ui button ch-signupButton">Sign up</button>
+	</form>
+</div>

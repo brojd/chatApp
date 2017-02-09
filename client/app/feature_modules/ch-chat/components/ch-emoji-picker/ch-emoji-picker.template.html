@@ -1,0 +1,16 @@
+<section [ngStyle]="{'bottom': bottom, 'right': right}">
+	<span *ngFor="let key of iconKeys"
+				(click)="handleIconClick(icons[key])"
+				class="ch-icon">
+		<i *ngIf="show_placeholders"
+			  class="large icon"
+			 [attr.data-tooltip]="':' + key + ':'"
+			 [attr.data-variation]="'mini'">
+			{{icons[key]}}
+		</i>
+		<i *ngIf="!show_placeholders"
+			 class="large icon">
+			{{icons[key]}}
+		</i>
+	</span>
+</section>

@@ -1,6 +1,9 @@
-<section class="ui center aligned container">
-	<div class="ui header">chat component</div>
-	<div class="ui segment">
-		<router-outlet></router-outlet>
+<section class="ui center aligned">
+	<div class="ui centered header ch-currentUser">
+		<img src="{{user.avatarUrl}}" alt="avatar" class="ui mini circular image" />
+		<span class="ch-nickname">{{user.nickname}}</span>
 	</div>
+	<section class="ch-chat">
+		<router-outlet></router-outlet>
+	</section>
 </section>

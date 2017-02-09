@@ -1,0 +1,84 @@
+.visible {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.ch-iconPickerSection {
+  height: 255px;
+  margin: 40px 0;
+}
+
+.ch-iconPreview {
+  height: 200px;
+  background: white;
+  padding-top: 40px;
+  box-shadow: 0px 0px 0px 1px #8e8e8e, -3px 3px #7d7d7d, -10px 10px 26px 0 #1c202b;
+  border-radius: 1px;
+}
+
+.ch-lobby .ui.form .field .ch-createRoomInput {
+  box-shadow: 0px 0px 0px 1px #8e8e8e, -3px 3px #7d7d7d, -10px 10px 26px 0 #1c202b;
+  border-radius: 1px;
+}
+
+.ch-createRoomHeader {
+  text-align: left;
+  color: #e4e4e4;
+  margin-bottom: 30px;
+}
+
+.ch-chooseIconHeader {
+  text-align: left;
+  color: #e4e4e4;
+}
+
+.ch-listOfRooms {
+  list-style: none;
+  box-shadow: 0px 0px 0px 1px #8e8e8e, -3px 3px #7d7d7d, -10px 10px 26px 0 #1c202b;
+  border-radius: 1px;
+  background: white;
+  padding: 0;
+}
+
+.ch-roomElem {
+  background: white;
+  border-bottom: 1px solid #eaeaea;
+  padding: 10px 0 10px 10px;
+  display: block;
+}
+
+.ch-roomElem:hover {
+  background: #efefef;
+}
+
+.ch-roomName {
+  color: #868686;
+  margin-left: 30px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ch-deleteRoomIcon {
+  float: right;
+  margin: 16px 16px 0 0;
+  color: #b5b5b5;
+}
+
+.ch-deleteRoomIcon:hover {
+  cursor: pointer;
+  color: #787878;
+}
+
+.ch-emoji-picker {
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: block;
+  background: white;
+  padding: 5px;
+  box-shadow: 0px 0px 0px 1px #717171, -2px 2px darkgrey, -10px 10px 26px 0 #1c202b;
+  border-radius: 2px;
+}
