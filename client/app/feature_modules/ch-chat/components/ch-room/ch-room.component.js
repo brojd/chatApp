@@ -28,6 +28,7 @@ export class ChRoomComponent {
     this.room = { name: '', icon: '' };
     this.isFileUploading = false;
     this.isFileUploaded = false;
+    this.componentReady = false;
   }
   
   sendMessage() {
@@ -104,6 +105,7 @@ export class ChRoomComponent {
           this.room = room;
           this.feed = room.feed;
           this.messages = room.messages;
+          this.componentReady = true;
         });
       });
     this.listenMessages = this.chatService.listenNewMessages().subscribe(
