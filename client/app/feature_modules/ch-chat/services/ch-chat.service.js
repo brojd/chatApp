@@ -67,16 +67,20 @@ export class ChChatService {
   }
   
   uploadFileToServer(file, fileData) {
-    let objToSend = {
-      name: file.name,
-      size: file.size,
-      type: file.type,
-      fileData: fileData
-    };
-    this.socket.emit('fileUpload', objToSend);
     let observable = new Observable(observer => {
+      let fileUploadedHandled = false;
+      let objToSend = {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        fileData: fileData
+      };
+      this.socket.emit('fileUpload', objToSend);
       this.socket.on('fileUploadFinish', (data) => {
-        observer.next(data);
+        if (!fileUploadedHandled) {
+          observer.next(data);
+        }
+        fileUploadedHandled = true;
       });
     });
     return observable;

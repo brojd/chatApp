@@ -67,3 +67,7 @@
 .ui.form .inline.fields {
   margin: 0;
 }
+
+.ui.form .inline.fields .field>input {
+  width: 85%;
+}
