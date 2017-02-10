@@ -1,6 +1,6 @@
 # Chat App
 
-Chat application with real-time messaging and file transfer as well as authorization
+Chat application with messages history, real-time messaging and file transfer as well as authorization
 <br/><br/>
 
 ## Getting Started
