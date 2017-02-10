@@ -1,6 +1,7 @@
 let express = require('express');
 let Room = require('../models/room.model');
 let loggedUsers = require('../usersInRooms');
+let rmdir = require('rimraf');
 
 let router = express.Router();
 
@@ -23,7 +24,6 @@ router.post('/', (req, res) => {
     name: req.body.name,
     icon: req.body.icon
   });
-  debugger;
   newRoom.save((err, room) => {
     if (err) throw err;
     loggedUsers.addRoom({ id: room.id, users: [] });
@@ -36,6 +36,9 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   let id = req.params.id;
+  rmdir(`server/tmp/uploads/${id}`, (err) => {
+    if (err) throw err;
+  });
   Room.remove({ _id: id}, err => {
     if (err) throw err;
     loggedUsers.deleteRoom(id);

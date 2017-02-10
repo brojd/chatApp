@@ -22,6 +22,7 @@
     "jsonwebtoken": "7.2.1",
     "mkdirp": "^0.5.1",
     "mongoose": "^4.7.8",
+    "rimraf": "^2.5.4",
     "socket.io": "^1.7.2",
     "socket.io-client": "^1.7.2"
   },
