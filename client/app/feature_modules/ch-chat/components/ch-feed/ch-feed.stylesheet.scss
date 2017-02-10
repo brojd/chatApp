@@ -1,0 +1,27 @@
+.ch-feed {
+  height: 210px;
+  overflow-y: auto;
+  background: linear-gradient(to bottom right, #2a3240, #4c596d);
+  box-shadow: -3px 4px #212940, -18px 18px 48px rgba(35, 43, 65, 0.73), 1px -1px rgba(33, 41, 64, 0.51);
+  padding: 5px;
+}
+
+.ch-feedInfo {
+  padding-bottom: 3px;
+}
+
+.ch-feedInfo__date {
+  float: right !important;
+}
+
+.ch-feedInfo__nickname {
+  border-radius: 9px;
+  padding: 3px;
+  margin-right: 3px;
+  margin-left: 3px;
+  background: radial-gradient(rgba(143, 45, 195, 0.86), rgba(43, 0, 99, 0.8));
+}
+
+.ch-feed * {
+  color: #E1E1E1 !important;
+}
