@@ -43,7 +43,7 @@ To see more detailed demo gifs, please visit ```./demo_gifs``` directory
 |   ├── routes                              # server routes
 |   |   ├── auth.js
 |   |   └── room.js
-|   |── tmp                                 # fodler for uploaded files
+|   |── tmp                                 # folder for uploaded files
 |   ├── chat-config.js                      # chat configuration variables
 |   ├── config.js                           # server configuration
 |   ├── socket-handler.js                   # socket.io handlers and emitters
