@@ -8,8 +8,9 @@ Chat application with messages history, real-time messaging and file transfer as
 To run the app you should:
 
 1. Run ```npm i```
-2. Run ```gulp serve```
-3. Open your browser on: ```http://localhost:9000/```.
+2. Edit ```mongoDB_URI``` in ```server/config.js``` to connect server with your database
+3. Run ```gulp serve```
+4. Open your browser on: ```http://localhost:9000/```.
 
 
 ## Demo
