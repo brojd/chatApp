@@ -1,5 +1,5 @@
 {
-  "name": "project-tracker",
+  "name": "chat-app",
   "version": "0.0.1",
   "main": "server/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": {
     "name": "Dominik Broj"
   },
-  "description": "Application to manage IT projects and track employees' work time",
+  "description": "Chat application with real-time messaging and file transfer",
   "engines": {
     "node": "6.5.0"
   },
